@@ -30,7 +30,7 @@ public class TLC implements IView, IModel {
         myRegistry = new ModelRegistry("TLC");
 
         setDependencies();
-        createAndShowLibrarianView();
+//        createAndShowLibrarianView();
     }
 
     private void setDependencies(){
@@ -57,52 +57,52 @@ public class TLC implements IView, IModel {
         }
     }
 
-    //Left off here
+//    //Left off here
     public void stateChangeRequest(String key, Object value){
-        if(key.equals("RegisterScout")){
-            registerNewScout();
-        }else if(key.equals("NewPatron")){
-            createNewPatron();
-        } else if (key.equals("SearchBooks")) {
-            createAndShowSearchView("Books");
-        } else if(key.equals("DoBookSearch")){
-            searchBooks((String)value);
-        } else if(key.equals("SearchPatrons")){
-            createAndShowSearchView("Patrons");
-        } else if(key.equals("DoPatronSearch")){
-            searchPatrons((String)value);
-        }else if(key.equals("Done")){
-            createAndShowLibrarianView();
-        }
-
+//        if(key.equals("RegisterScout")){
+//            registerNewScout();
+//        }else if(key.equals("NewPatron")){
+//            createNewPatron();
+//        } else if (key.equals("SearchBooks")) {
+//            createAndShowSearchView("Books");
+//        } else if(key.equals("DoBookSearch")){
+//            searchBooks((String)value);
+//        } else if(key.equals("SearchPatrons")){
+//            createAndShowSearchView("Patrons");
+//        } else if(key.equals("DoPatronSearch")){
+//            searchPatrons((String)value);
+//        }else if(key.equals("Done")){
+//            createAndShowLibrarianView();
+//        }
+//
         myRegistry.updateSubscribers(key, this);
     }
-
-    public void createAndShowLibrarianView(){
-        Scene currentScene = myViews.get("LibrarianView");
-
-        if(currentScene == null){
-            View newView = ViewFactory.createView("LibrarianView", this);
-            currentScene = new Scene(newView);
-            myViews.put("LibrarianView", currentScene);
-        }
-
-        swapToView(currentScene);
-    }
-
-    public void swapToView(Scene newScene){
-        if (newScene == null) {
-            System.out.println("Librarian.swapToView(): Missing view for display");
-            new Event(Event.getLeafLevelClassName(this), "swapToView",
-                    "Missing view for display ", Event.ERROR);
-            return;
-        }
-
-        myStage.setScene(newScene);
-        myStage.sizeToScene();
-        WindowPosition.placeCenter(myStage);
-    }
-
+//
+//    public void createAndShowLibrarianView(){
+//        Scene currentScene = myViews.get("LibrarianView");
+//
+//        if(currentScene == null){
+//            View newView = ViewFactory.createView("LibrarianView", this);
+//            currentScene = new Scene(newView);
+//            myViews.put("LibrarianView", currentScene);
+//        }
+//
+//        swapToView(currentScene);
+//    }
+//
+//    public void swapToView(Scene newScene){
+//        if (newScene == null) {
+//            System.out.println("Librarian.swapToView(): Missing view for display");
+//            new Event(Event.getLeafLevelClassName(this), "swapToView",
+//                    "Missing view for display ", Event.ERROR);
+//            return;
+//        }
+//
+//        myStage.setScene(newScene);
+//        myStage.sizeToScene();
+//        WindowPosition.placeCenter(myStage);
+//    }
+//
     @Override
     public void subscribe(String key, IView subscriber) {
         myRegistry.subscribe(key, subscriber);
@@ -117,55 +117,55 @@ public class TLC implements IView, IModel {
     public void updateState(String key, Object value) {
         stateChangeRequest(key, value);
     }
-
-    private void registerNewScout(){
-        Scout scout = new Scout()
-        scout.subscribe("TLCView", this);
-        scout.createAndShowScoutView();
-    }
-
-    private void createNewPatron(){
-        Patron patron = new Patron();
-        patron.subscribe("LibrarianView", this);
-        patron.createAndShowPatronView();
-    }
-
-    private void searchBooks(String title){
-        BookCollection books = new BookCollection();
-
-        books.findBooksWithTitleLike(title);
-        System.out.println(books);
-        createAndShowCollectionView("Book", books);
-    }
-
-    public void createAndShowSearchView(String type){
-        Scene currentScene = myViews.get("Search" + type + "View");
-
-        if(currentScene == null){
-            View newView = ViewFactory.createView("Search" + type + "View", this);
-            currentScene = new Scene(newView);
-            myViews.put(type + "SearchView", currentScene);
-        }
-
-        swapToView(currentScene);
-    }
-
-    public void createAndShowCollectionView(String type, Object collection){
-        Scene currentScene = myViews.get(type + "CollectionView");
-
-        if(currentScene == null){
-            View newView = ViewFactory.createView(type + "CollectionView", (IModel)collection);
-            currentScene = new Scene(newView);
-            myViews.put(type + "CollectionView", currentScene);
-        }
-
-        swapToView(currentScene);
-    }
-
-    private void searchPatrons(String zip){
-        PatronCollection patrons = new PatronCollection();
-
-        patrons.findPatronsAtZipcode(zip);
-        createAndShowCollectionView("Patron", patrons);
-    }
+//
+//    private void registerNewScout(){
+//        Scout scout = new Scout()
+//        scout.subscribe("TLCView", this);
+//        scout.createAndShowScoutView();
+//    }
+//
+//    private void createNewPatron(){
+//        Patron patron = new Patron();
+//        patron.subscribe("LibrarianView", this);
+//        patron.createAndShowPatronView();
+//    }
+//
+//    private void searchBooks(String title){
+//        BookCollection books = new BookCollection();
+//
+//        books.findBooksWithTitleLike(title);
+//        System.out.println(books);
+//        createAndShowCollectionView("Book", books);
+//    }
+//
+//    public void createAndShowSearchView(String type){
+//        Scene currentScene = myViews.get("Search" + type + "View");
+//
+//        if(currentScene == null){
+//            View newView = ViewFactory.createView("Search" + type + "View", this);
+//            currentScene = new Scene(newView);
+//            myViews.put(type + "SearchView", currentScene);
+//        }
+//
+//        swapToView(currentScene);
+//    }
+//
+//    public void createAndShowCollectionView(String type, Object collection){
+//        Scene currentScene = myViews.get(type + "CollectionView");
+//
+//        if(currentScene == null){
+//            View newView = ViewFactory.createView(type + "CollectionView", (IModel)collection);
+//            currentScene = new Scene(newView);
+//            myViews.put(type + "CollectionView", currentScene);
+//        }
+//
+//        swapToView(currentScene);
+//    }
+//
+//    private void searchPatrons(String zip){
+//        PatronCollection patrons = new PatronCollection();
+//
+//        patrons.findPatronsAtZipcode(zip);
+//        createAndShowCollectionView("Patron", patrons);
+//    }
 }
