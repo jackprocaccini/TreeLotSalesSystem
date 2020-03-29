@@ -1,0 +1,17 @@
+[3/29/20, 1:27 PM]|Scout|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1054: Unknown column 'scoutID' in 'where clause'>
+[3/29/20, 1:31 PM]|Scout|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1054: Unknown column 'scoutID' in 'where clause'>
+[3/29/20, 1:31 PM]|Scout|insertAutoIncrementalPersistentState|Error|NOTAG|null<SQL Exception: 1062: Duplicate entry '0' for key 'PRIMARY'>
+[3/29/20, 1:37 PM]|Scout|insertAutoIncrementalPersistentState|Error|NOTAG|null<SQL Exception: 1062: Duplicate entry '0' for key 'PRIMARY'>
+[3/29/20, 1:45 PM]|Scout|insertAutoIncrementalPersistentState|Error|NOTAG|null<SQL Exception: 1062: Duplicate entry '0' for key 'PRIMARY'>
+[3/29/20, 1:48 PM]|Scout|insertAutoIncrementalPersistentState|Error|NOTAG|null<SQL Exception: 1062: Duplicate entry '0' for key 'PRIMARY'>
+[3/29/20, 1:52 PM]|Scout|insertAutoIncrementalPersistentState|Error|NOTAG|null<SQL Exception: 1062: Duplicate entry '0' for key 'PRIMARY'>
+[3/29/20, 1:55 PM]|Scout|insertAutoIncrementalPersistentState|Error|NOTAG|null<SQL Exception: 1062: Duplicate entry '0' for key 'PRIMARY'>
+[3/29/20, 2:05 PM]|Scout|insertAutoIncrementalPersistentState|Error|NOTAG|null<SQL Exception: 1062: Duplicate entry '0' for key 'PRIMARY'>
+[3/29/20, 2:12 PM]|Scout|insertAutoIncrementalPersistentState|Error|NOTAG|null<SQL Exception: 1062: Duplicate entry '0' for key 'PRIMARY'>
+[3/29/20, 2:13 PM]|Scout|insertAutoIncrementalPersistentState|Error|NOTAG|null<SQL Exception: 1062: Duplicate entry '0' for key 'PRIMARY'>
+[3/29/20, 2:31 PM]|Scout|insertAutoIncrementalPersistentState|Error|NOTAG|null<SQL Exception: 1062: Duplicate entry '0' for key 'PRIMARY'>
+[3/29/20, 2:33 PM]|Scout|insertAutoIncrementalPersistentState|Error|NOTAG|null<SQL Exception: 1062: Duplicate entry '0' for key 'PRIMARY'>
+[3/29/20, 2:36 PM]|Scout|insertAutoIncrementalPersistentState|Error|NOTAG|null<SQL Exception: 1062: Duplicate entry '0' for key 'PRIMARY'>
+[3/29/20, 2:37 PM]|Scout|insertAutoIncrementalPersistentState|Error|NOTAG|null<SQL Exception: 1062: Duplicate entry '0' for key 'PRIMARY'>
+[3/29/20, 2:44 PM]|Scout|insertAutoIncrementalPersistentState|Error|NOTAG|null<SQL Exception: 1062: Duplicate entry '0' for key 'PRIMARY'>
+[3/29/20, 2:46 PM]|Scout|insertAutoIncrementalPersistentState|Error|NOTAG|null<SQL Exception: 1062: Duplicate entry '0' for key 'PRIMARY'>
