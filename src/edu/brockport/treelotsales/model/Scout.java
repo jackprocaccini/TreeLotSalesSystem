@@ -2,6 +2,10 @@ package edu.brockport.treelotsales.model;
 
 import edu.brockport.treelotsales.exception.InvalidPrimaryKeyException;
 import edu.brockport.treelotsales.impresario.IModel;
+import edu.brockport.treelotsales.userinterface.View;
+import edu.brockport.treelotsales.userinterface.ViewFactory;
+import edu.brockport.treelotsales.userinterface.WindowPosition;
+import javafx.scene.Scene;
 
 import java.sql.SQLException;
 import java.util.Enumeration;
@@ -173,6 +177,23 @@ public class Scout extends EntityBase implements IModel {
         entryList.add(persistentState.getProperty("DateStatusUpdated"));
 
         return entryList;
+    }
+
+    public void createAndShowScoutView(){
+        Scene currentScene = myViews.get("ScoutView");
+
+        if(currentScene == null){
+            View view = ViewFactory.createView("ScoutView", this);
+            // if (view == null) System.out.println("Null book view");
+            currentScene = new Scene(view);
+            myViews.put("ScoutView", currentScene);
+        }
+
+        myStage.setScene(currentScene);
+        myStage.sizeToScene();
+
+        //Place in center
+        WindowPosition.placeCenter(myStage);
     }
 
     public void update(){
