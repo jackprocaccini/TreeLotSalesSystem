@@ -65,6 +65,8 @@ public class TLC implements IView, IModel {
             createAndShowSearchView("Scout");
         } else if (key.equals("DeleteScout")) {
             createAndShowSearchView("Scout");
+        }else if(key.equals("AddTree")){
+            addTree();
         }else if(key.equals("DoScoutSearch")){
             searchScouts((Scout)value);
         } else if(key.equals("Done")){
@@ -118,6 +120,12 @@ public class TLC implements IView, IModel {
         Scout scout = new Scout();
         scout.subscribe("TLCView", this);
         scout.createAndShowScoutView();
+    }
+
+    private void addTree(){
+        Tree tree = new Tree();
+        tree.subscribe("TLCView", this);
+        tree.createAndShowTreeView();
     }
 
     private void searchScouts(Scout info){

@@ -2,6 +2,10 @@ package edu.brockport.treelotsales.model;
 
 import edu.brockport.treelotsales.exception.InvalidPrimaryKeyException;
 import edu.brockport.treelotsales.impresario.IModel;
+import edu.brockport.treelotsales.userinterface.View;
+import edu.brockport.treelotsales.userinterface.ViewFactory;
+import edu.brockport.treelotsales.userinterface.WindowPosition;
+import javafx.scene.Scene;
 
 import java.sql.SQLException;
 import java.util.Enumeration;
@@ -169,5 +173,22 @@ public class Tree extends EntityBase implements IModel {
 
     public String getUpdateStatusMessage() {
         return updateStatusMessage;
+    }
+
+    public void createAndShowTreeView(){
+        Scene currentScene = myViews.get("TreeView");
+
+        if(currentScene == null){
+            View view = ViewFactory.createView("TreeView", this);
+            // if (view == null) System.out.println("Null book view");
+            currentScene = new Scene(view);
+            myViews.put("TreeView", currentScene);
+        }
+
+        myStage.setScene(currentScene);
+        myStage.sizeToScene();
+
+        //Place in center
+        WindowPosition.placeCenter(myStage);
     }
 }
