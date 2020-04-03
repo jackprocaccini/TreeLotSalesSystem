@@ -7,7 +7,11 @@ public class ViewFactory {
 
 	public static View createView(String viewName, IModel model)
 	{
-		return null;
+		if (viewName.equals("TLCView")) {
+			return new TLCView(model);
+		} else{
+			return null;
+		}
 	}
 
 
