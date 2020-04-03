@@ -1,4 +1,4 @@
-package Main;
+package edu.brockport.treelotsales.Main;
 
 import edu.brockport.treelotsales.event.Event;
 import edu.brockport.treelotsales.model.TLC;
@@ -26,7 +26,7 @@ public class Main extends Application {
             TLC t = new TLC();
         } catch(Exception e){
             System.err.println("Could not create TLC");
-            new Event(Event.getLeafLevelClassName(this), "TLCSystem.<init>", "Unable to create Librarian object", Event.ERROR);
+            new Event(Event.getLeafLevelClassName(this), "TLCSystem.<init>", "Unable to create TLC object", Event.ERROR);
             e.printStackTrace();
         }
 
