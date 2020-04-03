@@ -1,4 +1,4 @@
-package edu.brockport.treelotsales.Main;
+package edu.brockport.treelotsales.main;
 
 import edu.brockport.treelotsales.event.Event;
 import edu.brockport.treelotsales.model.TLC;

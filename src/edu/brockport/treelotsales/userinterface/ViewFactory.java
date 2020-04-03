@@ -9,7 +9,9 @@ public class ViewFactory {
 	{
 		if (viewName.equals("TLCView")) {
 			return new TLCView(model);
-		} else{
+		}else if (viewName.equals("ScoutView")){
+			return new ScoutView(model);
+		}else{
 			return null;
 		}
 	}
