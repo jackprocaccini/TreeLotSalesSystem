@@ -23,7 +23,7 @@ public class Tree extends EntityBase implements IModel {
 
         setDependencies();
 
-        String query = "SELECT * FROM " + myTableName + " WHERE (TroopID = " + barcode + ")";
+        String query = "SELECT * FROM " + myTableName + " WHERE (Barcode = " + barcode + ")";
 
         Vector<Properties> allDataRetrieved = getSelectQueryResult(query);
 
@@ -97,8 +97,13 @@ public class Tree extends EntityBase implements IModel {
 
     @Override
     public void stateChangeRequest(String key, Object value) {
+        System.out.println("State change request in tree");
         if (key.equals("ProcessTree")) {
-            processTree(value);
+            processTree(value, "Update");
+
+        } else if(key.equals("ProcessNewTree")){
+            processTree(value, "New");
+
         } else {
             myRegistry.updateSubscribers(key, this);
         }
@@ -111,31 +116,53 @@ public class Tree extends EntityBase implements IModel {
         }
     }
 
-    private void processTree(Object props) {
-        this.persistentState = (Properties) (props);
-        updateStateInDatabase();
+    private void processTree(Object props, String type) {
+        System.out.println("Processing tree with props");
+        this.persistentState = (Properties)props;
+        updateStateInDatabase(type);
     }
 
-    private void updateStateInDatabase() {
+    private void updateStateInDatabase(String type) {
+        System.out.println("Updating state in database");
         try {
-            if (persistentState.getProperty("Barcode") != null) {
+            if(type.equalsIgnoreCase("New")){
+                Integer treeID =
+                        insertPersistentState(mySchema, persistentState);
+                persistentState.setProperty("Barcode", "" + treeID);
+                updateStatusMessage = "Tree data for new tree : "
+                        + persistentState.getProperty("Barcode")
+                        + "installed successfully in database!";
+            } else if(type.equalsIgnoreCase("Update")){
                 Properties whereClause = new Properties();
                 whereClause.setProperty("Barcode", persistentState.getProperty("Barcode"));
                 updatePersistentState(mySchema, persistentState, whereClause);
                 updateStatusMessage = "Tree data for tree number : " + persistentState.getProperty("Barcode") + " updated successfully in database!";
             } else {
-                Integer treeID =
-                        insertAutoIncrementalPersistentState(mySchema, persistentState);
-                persistentState.setProperty("Barcode", "" + treeID);
-                updateStatusMessage = "Tree data for new tree : "
-                        + persistentState.getProperty("Barcode")
-                        + "installed successfully in database!";
+                throw new SQLException();
             }
+//            System.out.println("Try part of updateStateInDatabase");
+//            if (persistentState.getProperty("Barcode") != null) {
+//                Properties whereClause = new Properties();
+//                whereClause.setProperty("Barcode", persistentState.getProperty("Barcode"));
+//                updatePersistentState(mySchema, persistentState, whereClause);
+//                updateStatusMessage = "Tree data for tree number : " + persistentState.getProperty("Barcode") + " updated successfully in database!";
+//            } else {
+//                System.out.println("Else statement");
+//                Integer treeID =
+//                        insertPersistentState(mySchema, persistentState);
+//                persistentState.setProperty("Barcode", "" + treeID);
+//                updateStatusMessage = "Tree data for new tree : "
+//                        + persistentState.getProperty("Barcode")
+//                        + "installed successfully in database!";
+//            }
 
         } catch (SQLException ex) {
+            System.out.println("Catch exception");
             System.out.println(ex.toString());
             updateStatusMessage = "Error in installing tree data in database!";
         }
+
+        System.out.println("Out of try catch");
     }
 
     public static int compare(Tree a, Tree b) {
@@ -167,8 +194,8 @@ public class Tree extends EntityBase implements IModel {
         return entryList;
     }
 
-    public void update() {
-        updateStateInDatabase();
+    public void update(String type) {
+        updateStateInDatabase(type);
     }
 
     public String getUpdateStatusMessage() {

@@ -1,13 +1,18 @@
 package edu.brockport.treelotsales.main;
 
+//src/resources/javafx/javafx-sdk-13.0.2/lib
+
 import edu.brockport.treelotsales.event.Event;
 import edu.brockport.treelotsales.model.TLC;
+import edu.brockport.treelotsales.model.Tree;
 import edu.brockport.treelotsales.userinterface.MainStageContainer;
 import edu.brockport.treelotsales.userinterface.WindowPosition;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
-public class Main extends Application {
+import java.util.Properties;
+
+public class TreeLotSalesSystem extends Application {
 
     public static void main (String[] args){
         launch(args);
@@ -15,6 +20,27 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
+
+//        String barcode = "test";
+//        String treeType = "1";
+//        String notes ="test notes";
+//        String status = "active";
+//        String dateLastUpdated ="today";
+//
+//        Properties properties = new Properties();
+//
+//        properties.setProperty("Barcode", barcode);
+//        properties.setProperty("TreeType", treeType);
+//        properties.setProperty("Notes", notes);
+//        properties.setProperty("Status", status);
+//        properties.setProperty("DateStatusUpdated", dateLastUpdated);
+//
+//        properties.list(System.out);
+//
+//        Tree tree = new Tree(properties);
+//        tree.update("New");
+//        System.out.println("End of program");
+
         MainStageContainer.setStage(stage, "Tree Lot Sales System");
         Stage mainStage = MainStageContainer.getInstance();
 

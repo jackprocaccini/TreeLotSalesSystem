@@ -11,7 +11,9 @@ public class ViewFactory {
 			return new TLCView(model);
 		}else if (viewName.equals("ScoutView")){
 			return new ScoutView(model);
-		}else{
+		}else if(viewName.equals("TreeView")){
+			return new TreeView(model);
+		} else {
 			return null;
 		}
 	}
