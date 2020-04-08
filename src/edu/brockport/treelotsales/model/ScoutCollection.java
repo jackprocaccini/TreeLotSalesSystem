@@ -29,9 +29,11 @@ public class ScoutCollection extends EntityBase implements IView {
 
     //needs testing
     public void findScoutsWithInfo(String firstName, String lastName, String email) {
-        String query = "SELECT * FROM " + tableName + " WHERE ((FirstName LIKE " + firstName
-                + ") OR (LastName LIKE " + lastName + ") OR (Email LIKE " + email + "))";
+        String query = "SELECT * FROM " + tableName + " WHERE FirstName LIKE '" + firstName
+                + "' OR LastName LIKE '" + lastName + "' OR Email LIKE '" + email + "'";
+        System.out.println(query);
         Vector allDataRetrieved = getSelectQueryResult(query);
+        System.out.println(allDataRetrieved);
 
         for(int i = 0; i < allDataRetrieved.size(); i++) {
             Scout s = new Scout((Properties)(allDataRetrieved.get(i)));

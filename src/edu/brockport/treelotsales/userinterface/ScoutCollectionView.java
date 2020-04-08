@@ -1,6 +1,7 @@
 package edu.brockport.treelotsales.userinterface;
 
 // system imports
+import edu.brockport.treelotsales.exception.InvalidPrimaryKeyException;
 import edu.brockport.treelotsales.model.Scout;
 import edu.brockport.treelotsales.model.ScoutCollection;
 import edu.brockport.treelotsales.model.TLC;
@@ -35,6 +36,8 @@ public class ScoutCollectionView extends View
 {
     protected TableView<ScoutTableModel> tableOfScouts;
     protected Button cancelButton;
+    protected Button updateButton;
+    protected Button deleteButton;
 //    protected Button submitButton;
 
     protected MessageView statusLog;
@@ -195,6 +198,8 @@ public class ScoutCollectionView extends View
         scrollPane.setContent(tableOfScouts);
 
         cancelButton = new Button("Done");
+        updateButton = new Button("Update Scout");
+        deleteButton = new Button("Delete Scout");
 
         //needs to eventually be fixed to go back to scout search view
         //and fixed to be done with low coupling
@@ -203,10 +208,28 @@ public class ScoutCollectionView extends View
             tlc.stateChangeRequest("Done", "");
         });
 
+        updateButton.setOnAction(e -> {
+            try {
+                Scout selectedScout = new Scout(tableOfScouts.getSelectionModel().getSelectedItem().getId());
+                selectedScout.createAndShowUpdateScoutView();
+            } catch (InvalidPrimaryKeyException ex) {
+                ex.printStackTrace();
+            }
+        });
+
+        updateButton.setOnAction(e -> {
+            try {
+                Scout selectedScout = new Scout(tableOfScouts.getSelectionModel().getSelectedItem().getId());
+                selectedScout.createAndShowDeleteScoutView();
+            } catch (InvalidPrimaryKeyException ex) {
+                ex.printStackTrace();
+            }
+        });
+
 
         HBox btnContainer = new HBox(100);
         btnContainer.setAlignment(Pos.CENTER);
-        btnContainer.getChildren().add(cancelButton);
+        btnContainer.getChildren().addAll(updateButton, deleteButton, cancelButton);
 
         vbox.getChildren().add(grid);
         vbox.getChildren().add(scrollPane);

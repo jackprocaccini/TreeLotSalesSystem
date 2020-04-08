@@ -55,11 +55,11 @@ public class TLCView extends View {
         });
 
         updateScoutButton.setOnAction(e -> {
-            myModel.stateChangeRequest("UpdateScout", null);
+            myModel.stateChangeRequest("ScoutSearch", null);
         });
 
         deleteScoutButton.setOnAction(e -> {
-            myModel.stateChangeRequest("DeleteScout", null);
+            myModel.stateChangeRequest("ScoutSearch", null);
         });
 
         addTreeButton.setOnAction(e -> {

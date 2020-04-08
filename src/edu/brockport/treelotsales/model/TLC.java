@@ -61,19 +61,31 @@ public class TLC implements IView, IModel {
     public void stateChangeRequest(String key, Object value){
         if(key.equals("RegisterScout")){
             registerNewScout();
-        }else if(key.equals("UpdateScout")){
-            createAndShowSearchView("Scout");
-        } else if (key.equals("DeleteScout")) {
-            createAndShowSearchView("Scout");
         }else if(key.equals("AddTree")){
             addTree();
         }else if(key.equals("DoScoutSearch")){
             searchScouts((Scout)value);
-        } else if(key.equals("Done")){
+        }
+        else if (key.equals("ScoutSearch")){
+            getSearchView();
+        }
+        else if(key.equals("Done")){
             createAndShowTLCView();
         }
 
         myRegistry.updateSubscribers(key, this);
+    }
+
+    private void getSearchView() {
+        Scene currentScene = myViews.get("ScoutSearch");
+
+        if(currentScene == null){
+            View newView = ViewFactory.createView("ScoutSearch", this);
+            currentScene = new Scene(newView);
+            myViews.put("ScoutSearch", currentScene);
+        }
+
+        swapToView(currentScene);
     }
 
     public void createAndShowTLCView(){
@@ -130,9 +142,9 @@ public class TLC implements IView, IModel {
 
     private void searchScouts(Scout info){
         ScoutCollection scouts = new ScoutCollection();
+        System.out.println(info);
 
         scouts.findScoutsWithInfo((String)info.getState("FirstName"), (String)info.getState("LastName"), (String)info.getState("Email"));
-        System.out.println(scouts);
         createAndShowCollectionView("Scout", scouts);
     }
 

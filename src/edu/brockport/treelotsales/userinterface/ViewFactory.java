@@ -13,7 +13,11 @@ public class ViewFactory {
 			return new ScoutView(model);
 		}else if(viewName.equals("TreeView")){
 			return new TreeView(model);
-		} else {
+		}else if(viewName.equals("ScoutSearch")){
+			return new SearchScoutsView(model);
+		}else if(viewName.equals("ScoutCollectionView")){
+			return new ScoutCollectionView(model);
+		}else {
 			return null;
 		}
 	}

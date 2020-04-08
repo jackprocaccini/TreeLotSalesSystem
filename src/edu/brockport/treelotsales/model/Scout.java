@@ -18,12 +18,12 @@ public class Scout extends EntityBase implements IModel {
 
     private Properties dependencies;
 
-    public Scout(String troopID) throws InvalidPrimaryKeyException {
+    public Scout(String Id) throws InvalidPrimaryKeyException {
         super(myTableName);
 
         setDependencies();
 
-        String query = "SELECT * FROM " + myTableName + " WHERE (TroopID = " + troopID + ")";
+        String query = "SELECT * FROM " + myTableName + " WHERE (ID = " + Id + ")";
 
         Vector<Properties> allDataRetrieved = getSelectQueryResult(query);
 
@@ -32,7 +32,7 @@ public class Scout extends EntityBase implements IModel {
 
             if(size == 0) {
                 throw new InvalidPrimaryKeyException("No scouts matching id : "
-                        + troopID + " found.");
+                        + Id + " found.");
 
             } else if(size == 1){
                 Properties retrievedBookData = allDataRetrieved.elementAt(0);
@@ -50,11 +50,11 @@ public class Scout extends EntityBase implements IModel {
                 }
             } else {
                 throw new InvalidPrimaryKeyException("Multiple scouts matching id : "
-                        + troopID + " found.");
+                        + Id + " found.");
             }
         } else {
             throw new InvalidPrimaryKeyException("No scout matching id : "
-                    + troopID + " found.");
+                    + Id + " found.");
         }
     }
 
@@ -159,6 +159,12 @@ public class Scout extends EntityBase implements IModel {
     }
 
     public void updateState(String key, Object value) {
+        if(key.equals("DateOfBirth") || key.equals("DateStatusUpdated") || key.equals("Email") ||
+                key.equals("FirstName") || key.equals("LastName") ||key.equals("MiddleName") ||key.equals("PhoneNumber") ||
+                key.equals("Status") ||key.equals("TroopID")){
+            persistentState.setProperty(key, (String)value);
+        }
+
         stateChangeRequest(key, value);
     }
 
@@ -187,6 +193,40 @@ public class Scout extends EntityBase implements IModel {
             // if (view == null) System.out.println("Null book view");
             currentScene = new Scene(view);
             myViews.put("ScoutView", currentScene);
+        }
+
+        myStage.setScene(currentScene);
+        myStage.sizeToScene();
+
+        //Place in center
+        WindowPosition.placeCenter(myStage);
+    }
+
+    public void createAndShowUpdateScoutView(){
+        Scene currentScene = myViews.get("UpdateScoutView");
+
+        if(currentScene == null){
+            View view = ViewFactory.createView("UpdateScoutView", this);
+            // if (view == null) System.out.println("Null book view");
+            currentScene = new Scene(view);
+            myViews.put("UpdateScoutView", currentScene);
+        }
+
+        myStage.setScene(currentScene);
+        myStage.sizeToScene();
+
+        //Place in center
+        WindowPosition.placeCenter(myStage);
+    }
+
+    public void createAndShowDeleteScoutView(){
+        Scene currentScene = myViews.get("DeleteScoutView");
+
+        if(currentScene == null){
+            View view = ViewFactory.createView("DeleteScoutView", this);
+            // if (view == null) System.out.println("Null book view");
+            currentScene = new Scene(view);
+            myViews.put("DeleteScoutView", currentScene);
         }
 
         myStage.setScene(currentScene);
