@@ -217,7 +217,7 @@ public class ScoutCollectionView extends View
             }
         });
 
-        updateButton.setOnAction(e -> {
+        deleteButton.setOnAction(e -> {
             try {
                 Scout selectedScout = new Scout(tableOfScouts.getSelectionModel().getSelectedItem().getId());
                 selectedScout.createAndShowDeleteScoutView();
