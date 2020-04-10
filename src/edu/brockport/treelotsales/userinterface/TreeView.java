@@ -71,7 +71,7 @@ public class TreeView extends View {
     }
 
     private Node createUserInputFields(){
-        VBox fieldsBox = new VBox(10);
+        VBox fieldsBox = new VBox();
         barcodeTF = new TextField();
         treeTypeTF = new TextField();
         notesTF = new TextField();
