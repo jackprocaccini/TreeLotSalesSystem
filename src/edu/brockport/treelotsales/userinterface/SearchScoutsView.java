@@ -31,7 +31,7 @@ public class SearchScoutsView extends View{
     private MessageView statusLog;
 
     public SearchScoutsView(IModel tlc){
-        super(tlc, "SearchBooksView");
+        super(tlc, "SearchScoutsView");
 
         VBox container = new VBox(10);
         container.setPadding(new Insets(10, 10, 10, 10));
@@ -66,7 +66,7 @@ public class SearchScoutsView extends View{
 
         lastNameLabel = new Label("Last Name");
         firstNameLabel = new Label("First Name");
-        emailLabel = new Label("email");
+        emailLabel = new Label("Email");
         labelsBox.getChildren().addAll(firstNameLabel, lastNameLabel, emailLabel);
         lastNameTF = new TextField();
         firstNameTF = new TextField();

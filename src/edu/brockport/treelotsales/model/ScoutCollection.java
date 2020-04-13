@@ -3,6 +3,7 @@ package edu.brockport.treelotsales.model;
 import edu.brockport.treelotsales.impresario.IView;
 
 import java.util.Properties;
+import java.util.Set;
 import java.util.Vector;
 
 public class ScoutCollection extends EntityBase implements IView {
@@ -27,10 +28,37 @@ public class ScoutCollection extends EntityBase implements IView {
 
     }
 
-    //needs testing
     public void findScoutsWithInfo(String firstName, String lastName, String email) {
-        String query = "SELECT * FROM " + tableName + " WHERE FirstName LIKE '" + firstName
-                + "' OR LastName LIKE '" + lastName + "' OR Email LIKE '" + email + "'";
+        String query = "";
+        Properties values = new Properties();
+
+        if(firstName.equals("") && lastName.equals("") && email.equals("")){
+            query = "SELECT * FROM Scout";
+        }else {
+            query = "SELECT * FROM Scout WHERE ";
+
+            if (!firstName.equals("")) {
+                values.put("FirstName", firstName);
+            }
+            if (!lastName.equals("")) {
+                values.put("LastName", lastName);
+            }
+            if (!email.equals("")) {
+                values.put("Email", email);
+            }
+
+            Set<String> keySet = values.stringPropertyNames();
+            Object[] keys = keySet.toArray();
+
+            for(int i = 0; i < keys.length; i++){
+                query += keys[i] + " LIKE '%" + values.get(keys[i]) + "%'";
+
+                if(i < keys.length - 1){
+                    query += " OR ";
+                }
+            }
+        }
+
         System.out.println(query);
         Vector allDataRetrieved = getSelectQueryResult(query);
         System.out.println(allDataRetrieved);

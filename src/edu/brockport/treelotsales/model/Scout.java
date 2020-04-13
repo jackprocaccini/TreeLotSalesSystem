@@ -102,9 +102,21 @@ public class Scout extends EntityBase implements IModel {
     public void stateChangeRequest(String key, Object value) {
         if(key.equals("ProcessScout")){
             processScout(value);
+        }else if(key.equals("DeleteScout")){
+            deleteScout();
         }else{
             myRegistry.updateSubscribers(key, this);
         }
+    }
+
+    private void deleteScout() {
+
+        try {
+            deletePersistentState(mySchema, persistentState);
+        } catch (SQLException e){
+            updateStatusMessage = "Error deleting scout!";
+        }
+
     }
 
     @Override

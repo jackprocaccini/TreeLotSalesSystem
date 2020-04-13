@@ -14,8 +14,7 @@ import javafx.scene.text.TextAlignment;
 
 public class TLCView extends View {
     private Button registerScoutButton;
-    private Button updateScoutButton;
-    private Button deleteScoutButton;
+    private Button updateDeleteScoutButton;
     private Button addTreeButton;
 
     private MessageView statusLog;
@@ -46,19 +45,14 @@ public class TLCView extends View {
         VBox buttonBox = new VBox(10);
         buttonBox.setAlignment(Pos.CENTER);
         registerScoutButton = new Button("Register Scout");
-        updateScoutButton = new Button("Update Scout");
-        deleteScoutButton = new Button("Delete Scout");
+        updateDeleteScoutButton = new Button("Update/Delete Scout");
         addTreeButton = new Button("Add Tree");
 
         registerScoutButton.setOnAction(e -> {
             myModel.stateChangeRequest("RegisterScout", null);
         });
 
-        updateScoutButton.setOnAction(e -> {
-            myModel.stateChangeRequest("ScoutSearch", null);
-        });
-
-        deleteScoutButton.setOnAction(e -> {
+        updateDeleteScoutButton.setOnAction(e -> {
             myModel.stateChangeRequest("ScoutSearch", null);
         });
 
@@ -66,7 +60,7 @@ public class TLCView extends View {
             myModel.stateChangeRequest("AddTree", null);
         });
 
-        buttonBox.getChildren().addAll(registerScoutButton, updateScoutButton, deleteScoutButton, addTreeButton);
+        buttonBox.getChildren().addAll(registerScoutButton, updateDeleteScoutButton, addTreeButton);
 
         return buttonBox;
     }
