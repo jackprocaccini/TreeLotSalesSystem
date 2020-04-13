@@ -17,6 +17,8 @@ public class ViewFactory {
 			return new SearchScoutsView(model);
 		}else if(viewName.equals("ScoutCollectionView")){
 			return new ScoutCollectionView(model);
+		}else if(viewName.equals("UpdateScoutView")){
+			return new UpdateScoutView(model);
 		}else {
 			return null;
 		}
