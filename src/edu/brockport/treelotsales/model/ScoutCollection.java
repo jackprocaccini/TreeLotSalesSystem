@@ -29,13 +29,12 @@ public class ScoutCollection extends EntityBase implements IView {
     }
 
     public void findScoutsWithInfo(String firstName, String lastName, String email) {
-        String query = "";
+        String query = "SELECT * FROM Scout";
         Properties values = new Properties();
 
-        if(firstName.equals("") && lastName.equals("") && email.equals("")){
-            query = "SELECT * FROM Scout";
-        }else {
-            query = "SELECT * FROM Scout WHERE ";
+        if(!(firstName.equals("") && lastName.equals("") && email.equals(""))){
+
+            query += " WHERE ";
 
             if (!firstName.equals("")) {
                 values.put("FirstName", firstName);
