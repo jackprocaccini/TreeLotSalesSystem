@@ -1,6 +1,7 @@
 package edu.brockport.treelotsales.userinterface;
 
 import edu.brockport.treelotsales.impresario.IModel;
+import edu.brockport.treelotsales.model.TLC;
 import edu.brockport.treelotsales.utilities.Utilities;
 import javafx.beans.binding.Bindings;
 import javafx.geometry.Insets;
@@ -31,6 +32,7 @@ public class TreeView extends View {
 //    private TextField dateStatusUpdatedTF;
 
     private Button addTreeButton;
+    private Button cancelButton;
 
     public TreeView(IModel tree){
         super(tree, "TreeView");
@@ -87,6 +89,13 @@ public class TreeView extends View {
         HBox buttonsBox = new HBox(10);
         addTreeButton = new Button("Add Tree");
 
+        cancelButton = new Button("Done");
+        //fix this later, hacked for now
+        cancelButton.setOnAction(e -> {
+            TLC l = new TLC();
+            l.createAndShowTLCView();
+        });
+
         addTreeButton.disableProperty().bind(
                 Bindings.isEmpty(barcodeTF.textProperty())
                         .and(Bindings.isEmpty(treeTypeTF.textProperty()))
@@ -97,7 +106,7 @@ public class TreeView extends View {
             verifyInputs();
         });
 
-        buttonsBox.getChildren().addAll(addTreeButton);
+        buttonsBox.getChildren().addAll(addTreeButton, cancelButton);
         return buttonsBox;
     }
 
