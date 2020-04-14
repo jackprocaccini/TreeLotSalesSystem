@@ -64,7 +64,7 @@ public class TreeView extends View {
     private Node createLabels(){
         VBox labelsBox = new VBox(10);
         barcodeLabel = new Label("Barcode:");
-        treeTypeLabel = new Label("Tree Type:");
+        treeTypeLabel = new Label("Tree Type (ID):");
         notesLabel = new Label("Notes:");
         statusLabel = new Label("Status");
 //        dateStatusUpdatedLabel = new Label("Last Status Update:");
