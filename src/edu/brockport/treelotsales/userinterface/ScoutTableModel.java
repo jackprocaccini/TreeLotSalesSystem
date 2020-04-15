@@ -19,18 +19,18 @@ public class ScoutTableModel
     private final SimpleStringProperty dateStatusUpdated;
 
     //----------------------------------------------------------------------------
-    public ScoutTableModel(Vector<String> bookData)
+    public ScoutTableModel(Vector<String> scoutData)
     {
-        id =  new SimpleStringProperty(bookData.elementAt(0));
-        firstName =  new SimpleStringProperty(bookData.elementAt(1));
-        lastName =  new SimpleStringProperty(bookData.elementAt(2));
-        middleName =  new SimpleStringProperty(bookData.elementAt(3));
-        dateOfBirth =  new SimpleStringProperty(bookData.elementAt(4));
-        phoneNumber =  new SimpleStringProperty(bookData.elementAt(5));
-        email =  new SimpleStringProperty(bookData.elementAt(6));
-        troopID =  new SimpleStringProperty(bookData.elementAt(7));
-        status =  new SimpleStringProperty(bookData.elementAt(8));
-        dateStatusUpdated =  new SimpleStringProperty(bookData.elementAt(9));
+        id =  new SimpleStringProperty(scoutData.elementAt(0));
+        firstName =  new SimpleStringProperty(scoutData.elementAt(1));
+        lastName =  new SimpleStringProperty(scoutData.elementAt(2));
+        middleName =  new SimpleStringProperty(scoutData.elementAt(3));
+        dateOfBirth =  new SimpleStringProperty(scoutData.elementAt(4));
+        phoneNumber =  new SimpleStringProperty(scoutData.elementAt(5));
+        email =  new SimpleStringProperty(scoutData.elementAt(6));
+        troopID =  new SimpleStringProperty(scoutData.elementAt(7));
+        status =  new SimpleStringProperty(scoutData.elementAt(8));
+        dateStatusUpdated =  new SimpleStringProperty(scoutData.elementAt(9));
 
     }
 
