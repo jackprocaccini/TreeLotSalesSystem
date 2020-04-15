@@ -59,8 +59,8 @@ public class TreeTypeCollectionView extends View{
 
             while (entries.hasMoreElements())
             {
-                Scout nextScout = (Scout)(entries.nextElement());
-                Vector<String> view = nextScout.getEntryListView();
+                TreeType treeType = (TreeType)(entries.nextElement());
+                Vector<String> view = treeType.getEntryListView();
 
                 // add this list entry to the list
                 TreeTypeTableModel nextTableRowData = new TreeTypeTableModel(view);
