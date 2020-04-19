@@ -16,6 +16,7 @@ public class TLCView extends View {
     private Button registerScoutButton;
     private Button updateDeleteScoutButton;
     private Button addTreeButton;
+    private Button updateDeleteTreeButton;
 
     private MessageView statusLog;
 
@@ -47,6 +48,7 @@ public class TLCView extends View {
         registerScoutButton = new Button("Register Scout");
         updateDeleteScoutButton = new Button("Update/Delete Scout");
         addTreeButton = new Button("Add Tree");
+        updateDeleteTreeButton = new Button("Update/Delete Tree");
 
         registerScoutButton.setOnAction(e -> {
             myModel.stateChangeRequest("RegisterScout", null);
@@ -60,7 +62,11 @@ public class TLCView extends View {
             myModel.stateChangeRequest("AddTree", null);
         });
 
-        buttonBox.getChildren().addAll(registerScoutButton, updateDeleteScoutButton, addTreeButton);
+        updateDeleteTreeButton.setOnAction(e -> {
+            myModel.stateChangeRequest("TreeSearch", null);
+        });
+
+        buttonBox.getChildren().addAll(registerScoutButton, updateDeleteScoutButton, addTreeButton, updateDeleteTreeButton);
 
         return buttonBox;
     }
