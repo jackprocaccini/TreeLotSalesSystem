@@ -1,5 +1,6 @@
 package edu.brockport.treelotsales.model;
 
+import edu.brockport.treelotsales.exception.InvalidPrimaryKeyException;
 import edu.brockport.treelotsales.impresario.ModelRegistry;
 import edu.brockport.treelotsales.event.Event;
 import edu.brockport.treelotsales.impresario.IModel;
@@ -21,7 +22,7 @@ public class TLC implements IView, IModel {
     private Hashtable<String, Scene> myViews;
     private Stage myStage;
 
-    private String transactionErrorMessage = "";
+    private String errorMessage = "";
 
     public TLC(){
         myStage = MainStageContainer.getInstance();
@@ -51,7 +52,7 @@ public class TLC implements IView, IModel {
 
     public Object getState(String key){
         if(key.equals("TransactionError")){
-            return transactionErrorMessage;
+            return errorMessage;
         } else {
             return "";
         }
@@ -67,7 +68,11 @@ public class TLC implements IView, IModel {
             searchScouts((Scout)value);
         }
         else if (key.equals("ScoutSearch")){
-            getSearchView();
+            getScoutSearchView();
+        }else if (key.equals("TreeSearch")){
+            getTreeSearchView();
+        }else if (key.equals("DoTreeSearch")){
+            searchTrees((Tree)value);
         }
         else if(key.equals("Done")){
             createAndShowTLCView();
@@ -76,13 +81,25 @@ public class TLC implements IView, IModel {
         myRegistry.updateSubscribers(key, this);
     }
 
-    private void getSearchView() {
+    private void getScoutSearchView() {
         Scene currentScene = myViews.get("ScoutSearch");
 
         if(currentScene == null){
             View newView = ViewFactory.createView("ScoutSearch", this);
             currentScene = new Scene(newView);
             myViews.put("ScoutSearch", currentScene);
+        }
+
+        swapToView(currentScene);
+    }
+
+    private void getTreeSearchView() {
+        Scene currentScene = myViews.get("TreeSearch");
+
+        if(currentScene == null){
+            View newView = ViewFactory.createView("TreeSearch", this);
+            currentScene = new Scene(newView);
+            myViews.put("TreeSearch", currentScene);
         }
 
         swapToView(currentScene);
@@ -146,6 +163,17 @@ public class TLC implements IView, IModel {
 
         scouts.findScoutsWithInfo((String)info.getState("FirstName"), (String)info.getState("LastName"), (String)info.getState("Email"));
         createAndShowCollectionView("Scout", scouts);
+    }
+
+    private void searchTrees(Tree info){
+        try{
+            Tree t = new Tree((String)info.getState("Barcode"));
+            t.createAndShowUpdateOrDeleteTreeView();
+        }catch(InvalidPrimaryKeyException e){
+            e.printStackTrace();
+        }
+
+
     }
 
     public void createAndShowSearchView(String type){

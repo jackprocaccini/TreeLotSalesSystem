@@ -2,6 +2,7 @@ package edu.brockport.treelotsales.userinterface;
 
 import edu.brockport.treelotsales.impresario.IModel;
 import edu.brockport.treelotsales.model.TLC;
+import edu.brockport.treelotsales.model.Tree;
 import edu.brockport.treelotsales.utilities.Utilities;
 import javafx.beans.binding.Bindings;
 import javafx.geometry.Insets;
@@ -16,7 +17,7 @@ import javafx.scene.layout.VBox;
 import java.util.Calendar;
 import java.util.Properties;
 
-public class TreeView extends View {
+public class UpdateOrDeleteTreeView extends View {
     private MessageView statusLog;
 
     private Label barcodeLabel;
@@ -31,11 +32,12 @@ public class TreeView extends View {
     private ComboBox<String> statusCB;
 //    private TextField dateStatusUpdatedTF;
 
-    private Button addTreeButton;
+    private Button updateButton;
+    private Button deleteButton;
     private Button cancelButton;
 
-    public TreeView(IModel tree){
-        super(tree, "TreeView");
+    public UpdateOrDeleteTreeView(IModel tree){
+        super(tree, "UpdateOrDeleteTreeView");
         VBox container = new VBox(10);
         container.setPadding(new Insets(10, 10, 10, 10));
         container.getChildren().addAll(createBody(), createButtons(), createStatusLog(""));
@@ -63,7 +65,7 @@ public class TreeView extends View {
 
     private Node createLabels(){
         VBox labelsBox = new VBox(10);
-        barcodeLabel = new Label("Barcode:");
+        barcodeLabel = new Label("Barcode: ");
         treeTypeLabel = new Label("Tree Type (ID):");
         notesLabel = new Label("Notes:");
         statusLabel = new Label("Status");
@@ -74,9 +76,9 @@ public class TreeView extends View {
 
     private Node createUserInputFields(){
         VBox fieldsBox = new VBox();
-        barcodeTF = new TextField();
-        treeTypeTF = new TextField();
-        notesTF = new TextField();
+        barcodeTF = new TextField((String)myModel.getState("Barcode"));
+        treeTypeTF = new TextField((String)myModel.getState("TreeType"));
+        notesTF = new TextField((String)myModel.getState("Notes"));
         statusCB = new ComboBox<String>();
         statusCB.getItems().addAll("Active", "Inactive");
         statusCB.getSelectionModel().selectFirst();
@@ -87,7 +89,8 @@ public class TreeView extends View {
 
     private Node createButtons(){
         HBox buttonsBox = new HBox(10);
-        addTreeButton = new Button("Add Tree");
+        updateButton = new Button("Update");
+        deleteButton = new Button("Delete");
 
         cancelButton = new Button("Done");
         //fix this later, hacked for now
@@ -96,17 +99,17 @@ public class TreeView extends View {
             l.createAndShowTLCView();
         });
 
-        addTreeButton.disableProperty().bind(
-                Bindings.isEmpty(barcodeTF.textProperty())
-                        .and(Bindings.isEmpty(treeTypeTF.textProperty()))
-        );
-
-        addTreeButton.setOnAction(e -> {
-            System.out.println("Verifying inputs");
+        updateButton.setOnAction(e -> {
             verifyInputs();
         });
 
-        buttonsBox.getChildren().addAll(addTreeButton, cancelButton);
+        deleteButton.setOnAction(e -> {
+            statusCB.setValue("Inactive");
+            verifyInputs();
+            displayMessage("Tree Successfully Deleted!");
+        });
+
+        buttonsBox.getChildren().addAll(updateButton, deleteButton, cancelButton);
         return buttonsBox;
     }
 
@@ -137,9 +140,9 @@ public class TreeView extends View {
             props.setProperty("DateStatusUpdated", Utilities.convertToDefaultDateFormat(cal.getTime()));
 
             System.out.println("state change request");
-            myModel.stateChangeRequest("ProcessNewTree", props);
+            myModel.stateChangeRequest("ProcessTree", props);
             System.out.println("process tree completed");
-            updateState("Success", "Tree successfully added to database!");
+            updateState("Success", "Tree successfully Updated!");
         }
     }
 
@@ -162,3 +165,4 @@ public class TreeView extends View {
         statusLog.clearErrorMessage();
     }
 }
+

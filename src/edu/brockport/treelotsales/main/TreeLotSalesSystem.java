@@ -21,26 +21,6 @@ public class TreeLotSalesSystem extends Application {
     @Override
     public void start(Stage stage) throws Exception {
 
-//        String barcode = "test";
-//        String treeType = "1";
-//        String notes ="test notes";
-//        String status = "active";
-//        String dateLastUpdated ="today";
-//
-//        Properties properties = new Properties();
-//
-//        properties.setProperty("Barcode", barcode);
-//        properties.setProperty("TreeType", treeType);
-//        properties.setProperty("Notes", notes);
-//        properties.setProperty("Status", status);
-//        properties.setProperty("DateStatusUpdated", dateLastUpdated);
-//
-//        properties.list(System.out);
-//
-//        Tree tree = new Tree(properties);
-//        tree.update("New");
-//        System.out.println("End of program");
-
         MainStageContainer.setStage(stage, "Tree Lot Sales System");
         Stage mainStage = MainStageContainer.getInstance();
 

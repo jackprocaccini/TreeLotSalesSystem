@@ -170,4 +170,12 @@ public class TreeType extends EntityBase implements IModel {
     public String getUpdateStatusMessage() {
         return updateStatusMessage;
     }
+
+    public void createAndShowUpdateTreeTypeView(){
+        //to be written at a later date
+    }
+
+    public void createAndShowDeleteTreeTypeView(){
+        //to be written at a later date
+    }
 }

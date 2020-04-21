@@ -60,7 +60,7 @@ public class TreeTypeCollection extends EntityBase implements IView {
         if (key.equals("TreeTypes"))
             return treeTypes;
         else
-        if (key.equals("TreeTypesList"))
+        if (key.equals("TreeTypeList"))
             return this;
         return null;
     }

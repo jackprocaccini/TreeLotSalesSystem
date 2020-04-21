@@ -179,7 +179,13 @@ public class Tree extends EntityBase implements IModel {
     }
 
     public void updateState(String key, Object value) {
-        stateChangeRequest(key, value);
+
+        if(key.equals("Barcode") || key.equals("DateStatusUpdated") || key.equals("Notes") ||
+                key.equals("TreeType") || key.equals("Status")){
+            persistentState.setProperty(key, (String)value);
+        }else{
+            stateChangeRequest(key, value);
+        }
     }
 
     public Vector<String> getEntryListView() {
@@ -210,6 +216,22 @@ public class Tree extends EntityBase implements IModel {
             // if (view == null) System.out.println("Null book view");
             currentScene = new Scene(view);
             myViews.put("TreeView", currentScene);
+        }
+
+        myStage.setScene(currentScene);
+        myStage.sizeToScene();
+
+        //Place in center
+        WindowPosition.placeCenter(myStage);
+    }
+
+    public void createAndShowUpdateOrDeleteTreeView(){
+        Scene currentScene = myViews.get("UpdateOrDeleteTreeView");
+
+        if(currentScene == null){
+            View view = ViewFactory.createView("UpdateOrDeleteTreeView", this);
+            currentScene = new Scene(view);
+            myViews.put("UpdateOrDeleteTreeView", currentScene);
         }
 
         myStage.setScene(currentScene);
