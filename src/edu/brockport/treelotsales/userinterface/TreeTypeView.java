@@ -22,7 +22,7 @@ public class TreeTypeView extends View {
     private Label costLabel;
     private Label barcodePrefixLabel;
 
-    //declare textfields
+    //declare text fields
     private TextField typeDescriptionTF;
     private TextField costTF;
     private TextField barcodePrefixTF;
