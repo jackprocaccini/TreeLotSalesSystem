@@ -21,6 +21,8 @@ public class ViewFactory {
 			return new UpdateScoutView(model);
 		}else if (viewName.equals("DeleteScoutView")){
 			return new DeleteScoutView(model);
+		}else if (viewName.equals("TreeTypeView")){
+			return new TreeTypeView(model);
 		}else if(viewName.equals("TreeTypeCollectionView")){
 			return new TreeTypeCollectionView(model);
 		}else if(viewName.equals("TreeSearch")){
