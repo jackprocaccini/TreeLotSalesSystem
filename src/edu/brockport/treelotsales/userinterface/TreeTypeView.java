@@ -38,7 +38,7 @@ public class TreeTypeView extends View {
         container.getChildren().addAll(createBody(), createButtons(), createStatusLog(""));
         getChildren().add(container);
     }
-
+//
     @Override
     public void updateState(String key, Object value) {
         System.out.println("Update State");
