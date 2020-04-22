@@ -31,8 +31,8 @@ public class TreeTypeView extends View {
     private Button addTreeTypeButton;
     private Button cancelButton;
 
-    public TreeTypeView(IModel tree) {
-        super(tree, "TreeTypeView");
+    public TreeTypeView(IModel treeType) {
+        super(treeType, "TreeTypeView");
         VBox container = new VBox(10);
         container.setPadding(new Insets(10, 10, 10, 10));
         container.getChildren().addAll(createBody(), createButtons(), createStatusLog(""));
@@ -78,7 +78,7 @@ public class TreeTypeView extends View {
 
     private Node createButtons(){
         HBox buttonsBox = new HBox(10);
-        addTreeTypeButton = new Button("Add Tree");
+        addTreeTypeButton = new Button("Add Tree Type");
 
         cancelButton = new Button("Done");
         //fix this later, hacked for now
@@ -118,9 +118,9 @@ public class TreeTypeView extends View {
             props.setProperty("Cost", costText);
 
             System.out.println("state change request");
-            myModel.stateChangeRequest("AddNewTreeType", props);
+            myModel.stateChangeRequest("ProcessTreeType", props);
             System.out.println("Adding tree type completed");
-            updateState("Success", "Tree type successfully added to database!");
+            updateState("Success", "Tree type successfully added!");
         }
     }
 
