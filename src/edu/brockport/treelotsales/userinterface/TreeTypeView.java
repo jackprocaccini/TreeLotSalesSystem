@@ -7,12 +7,10 @@ import javafx.beans.binding.Bindings;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import java.util.Calendar;
 import java.util.Properties;
 
 public class TreeTypeView extends View {
@@ -113,9 +111,10 @@ public class TreeTypeView extends View {
         } else {
             System.out.println("creating properties");
             Properties props = new Properties();
-            props.setProperty("TreeTypeDescription", treeTypeDescriptionText);
-            props.setProperty("BarcodePrefix", barcodePrefixText);
+            props.setProperty("TypeDescription", treeTypeDescriptionText);
             props.setProperty("Cost", costText);
+            props.setProperty("BarcodePrefix", barcodePrefixText);
+
 
             System.out.println("state change request");
             myModel.stateChangeRequest("ProcessTreeType", props);
