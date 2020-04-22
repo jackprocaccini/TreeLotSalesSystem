@@ -68,7 +68,7 @@ public class TLCView extends View {
             myModel.stateChangeRequest("TreeSearch", null);
         });
         addTreeTypeButton.setOnAction(e -> {
-            myModel.stateChangeRequest("TreeTypeSearch", null);
+            myModel.stateChangeRequest("AddTreeType", null);
         });
 
 

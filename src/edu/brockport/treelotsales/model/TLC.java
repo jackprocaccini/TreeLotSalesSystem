@@ -75,7 +75,7 @@ public class TLC implements IView, IModel {
             searchTrees((Tree)value);
 
 
-    }else if (key.equals("AddTreeType")){
+    }else if (key.equals("TreeTypeView")){
         addTreeType();
 
     }

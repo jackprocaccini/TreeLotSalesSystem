@@ -177,12 +177,12 @@ public class TreeType extends EntityBase implements IModel {
 
 
     public void createAndShowAddTreeTypeView(){
-            Scene currentScene = myViews.get("CreateAndShowAddTreeTypeView");
+            Scene currentScene = myViews.get("createAndShowAddTreeTypeView");
 
             if(currentScene == null){
-                View view = ViewFactory.createView("CreateAndShowAddTreeTypeView", this);
+                View view = ViewFactory.createView("createAndShowAddTreeTypeView", this);
                 currentScene = new Scene(view);
-                myViews.put("CreateAndShowAddTreeTypeView", currentScene);
+                myViews.put("createAndShowAddTreeTypeView", currentScene);
             }
 
             myStage.setScene(currentScene);
