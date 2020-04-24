@@ -4,10 +4,7 @@ import edu.brockport.treelotsales.impresario.IModel;
 import edu.brockport.treelotsales.model.TLC;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -18,6 +15,8 @@ import javafx.scene.text.TextAlignment;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Properties;
 
@@ -34,7 +33,7 @@ public class ScoutView extends View{
     private TextField lastNameTF;
     private TextField firstNameTF;
     private TextField middleNameTF;
-    private TextField dateOfBirthTF;
+    private DatePicker dateOfBirth;
     private TextField phoneNumberTF;
     private TextField emailTF;
     private TextField troopIDTF;
@@ -95,14 +94,14 @@ public class ScoutView extends View{
         lastNameTF = new TextField();
         middleNameTF = new TextField();
         firstNameTF = new TextField();
-        dateOfBirthTF = new TextField();
+        dateOfBirth = new DatePicker();
         phoneNumberTF = new TextField();
         emailTF = new TextField();
         troopIDTF = new TextField();
         statusCB = new ComboBox<String>();
         statusCB.getItems().addAll("Active", " Inactive");
         statusCB.setValue("Active");
-        tfBox.getChildren().addAll(lastNameTF, middleNameTF, firstNameTF, dateOfBirthTF, phoneNumberTF,
+        tfBox.getChildren().addAll(lastNameTF, middleNameTF, firstNameTF, dateOfBirth, phoneNumberTF,
                 emailTF, troopIDTF, statusCB);
 
         mainBox.getChildren().addAll(labelsBox, tfBox);
@@ -127,7 +126,7 @@ public class ScoutView extends View{
         String lastName = lastNameTF.getText();
         String firstName = firstNameTF.getText();
         String middleName = middleNameTF.getText();
-        String DOB = dateOfBirthTF.getText();
+        String DOB = dateOfBirth.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         String phoneNumber = phoneNumberTF.getText();
         String email = emailTF.getText();
         String troopID = troopIDTF.getText();

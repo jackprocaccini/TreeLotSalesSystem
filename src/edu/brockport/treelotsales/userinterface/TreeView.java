@@ -2,6 +2,7 @@ package edu.brockport.treelotsales.userinterface;
 
 import edu.brockport.treelotsales.impresario.IModel;
 import edu.brockport.treelotsales.model.TLC;
+import edu.brockport.treelotsales.model.TreeType;
 import edu.brockport.treelotsales.utilities.Utilities;
 import javafx.beans.binding.Bindings;
 import javafx.geometry.Insets;
@@ -20,13 +21,11 @@ public class TreeView extends View {
     private MessageView statusLog;
 
     private Label barcodeLabel;
-    private Label treeTypeLabel;
     private Label notesLabel;
     private Label statusLabel;
 //    private Label dateStatusUpdatedLabel;
 
     private TextField barcodeTF;
-    private TextField treeTypeTF;
     private TextField notesTF;
     private ComboBox<String> statusCB;
 //    private TextField dateStatusUpdatedTF;
@@ -64,24 +63,24 @@ public class TreeView extends View {
     private Node createLabels(){
         VBox labelsBox = new VBox(10);
         barcodeLabel = new Label("Barcode:");
-        treeTypeLabel = new Label("Tree Type (ID):");
+//        treeTypeLabel = new Label("Tree Type (ID):");
         notesLabel = new Label("Notes:");
         statusLabel = new Label("Status");
 //        dateStatusUpdatedLabel = new Label("Last Status Update:");
-        labelsBox.getChildren().addAll(barcodeLabel, treeTypeLabel, notesLabel, statusLabel);
+        labelsBox.getChildren().addAll(barcodeLabel, notesLabel, statusLabel);
         return labelsBox;
     }
 
     private Node createUserInputFields(){
         VBox fieldsBox = new VBox();
         barcodeTF = new TextField();
-        treeTypeTF = new TextField();
+//        treeTypeTF = new TextField();
         notesTF = new TextField();
         statusCB = new ComboBox<String>();
         statusCB.getItems().addAll("Active", "Inactive");
         statusCB.getSelectionModel().selectFirst();
 //        dateStatusUpdatedTF = new TextField();
-        fieldsBox.getChildren().addAll(barcodeTF, treeTypeTF, notesTF, statusCB);
+        fieldsBox.getChildren().addAll(barcodeTF, notesTF, statusCB);
         return fieldsBox;
     }
 
@@ -98,7 +97,6 @@ public class TreeView extends View {
 
         addTreeButton.disableProperty().bind(
                 Bindings.isEmpty(barcodeTF.textProperty())
-                        .and(Bindings.isEmpty(treeTypeTF.textProperty()))
         );
 
         addTreeButton.setOnAction(e -> {
@@ -112,7 +110,8 @@ public class TreeView extends View {
 
     private void verifyInputs(){
         String barcodeText = barcodeTF.getText().trim();
-        String treeTypeText = treeTypeTF.getText().trim();
+        String treeTypeText = barcodeText.substring(0,2);
+        System.out.println(treeTypeText);
         String notesText = notesTF.getText().trim();
         String statusText = statusCB.getValue();
 

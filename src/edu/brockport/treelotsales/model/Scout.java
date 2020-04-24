@@ -110,13 +110,8 @@ public class Scout extends EntityBase implements IModel {
     }
 
     private void deleteScout() {
-
-        try {
-            deletePersistentState(mySchema, persistentState);
-        } catch (SQLException e){
-            updateStatusMessage = "Error deleting scout!";
-        }
-
+        updateState("Status", "Inactive");
+        updateStateInDatabase();
     }
 
     @Override
