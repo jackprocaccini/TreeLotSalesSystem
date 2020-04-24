@@ -2,6 +2,8 @@ package edu.brockport.treelotsales.model;
 
 import edu.brockport.treelotsales.impresario.IView;
 
+import java.util.Properties;
+import java.util.Set;
 import java.util.Vector;
 
 public class TreeTypeCollection extends EntityBase implements IView {
@@ -19,6 +21,44 @@ public class TreeTypeCollection extends EntityBase implements IView {
         //accounts.add(a);
         int index = findIndexToAdd(s);
         treeTypes.insertElementAt(s,index); // To build up a collection sorted on some key
+    }
+
+    public void findTreeTypesWithInfo(String cost, String barcodePrefix) {
+        String query = "SELECT * FROM TreeType";
+        Properties values = new Properties();
+
+        if(!(cost.equals("") && barcodePrefix.equals(""))){
+
+            query += " WHERE ";
+
+            if (!cost.equals("")) {
+                values.put("Cost", cost);
+            }
+            if (!barcodePrefix.equals("")) {
+                values.put("BarcodePrefix", barcodePrefix);
+            }
+
+            Set<String> keySet = values.stringPropertyNames();
+            Object[] keys = keySet.toArray();
+
+            for(int i = 0; i < keys.length; i++){
+                query += keys[i] + " LIKE '%" + values.get(keys[i]) + "%'";
+
+                if(i < keys.length - 1){
+                    query += " OR ";
+                }
+            }
+        }
+
+        System.out.println(query);
+        Vector allDataRetrieved = getSelectQueryResult(query);
+        System.out.println(allDataRetrieved);
+
+        for(int i = 0; i < allDataRetrieved.size(); i++) {
+            TreeType s = new TreeType((Properties)(allDataRetrieved.get(i)));
+            addTreeType(s);
+        }
+
     }
 
     private int findIndexToAdd(TreeType a)

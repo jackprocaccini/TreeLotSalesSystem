@@ -31,7 +31,9 @@ public class ViewFactory {
 			return new UpdateOrDeleteTreeView(model);
 		} else if(viewName.equals("TreeTypeView")){
 			return new TreeTypeView(model);
-		}else {
+		}else if(viewName.equals("TreeTypeCollectionView")){
+			return new TreeTypeCollectionView(model);
+		} else {
 			return null;
 		}
 	}
