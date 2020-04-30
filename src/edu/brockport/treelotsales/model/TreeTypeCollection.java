@@ -61,6 +61,17 @@ public class TreeTypeCollection extends EntityBase implements IView {
 
     }
 
+    protected void getAll(){
+        String query = "SELECT * FROM TreeType";
+
+        Vector allDataRetrieved = getSelectQueryResult(query);
+
+        for(int i = 0; i < allDataRetrieved.size(); i++) {
+            TreeType t = new TreeType((Properties)(allDataRetrieved.get(i)));
+            addTreeType(t);
+        }
+    }
+
     private int findIndexToAdd(TreeType a)
     {
         //users.add(u);

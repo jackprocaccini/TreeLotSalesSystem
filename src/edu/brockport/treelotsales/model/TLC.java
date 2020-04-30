@@ -75,6 +75,8 @@ public class TLC implements IView, IModel {
             searchTrees((Tree)value);
         }else if (key.equals("AddTreeType")){
             addTreeType();
+        }else if (key.equals("UpdateTreeType")){
+            updateTreeType();
         } else if(key.equals("Done")){
             createAndShowTLCView();
         }
@@ -205,5 +207,12 @@ public class TLC implements IView, IModel {
         }
 
         swapToView(currentScene);
+    }
+
+    private void updateTreeType(){
+        TreeTypeCollection treeTypes = new TreeTypeCollection();
+        treeTypes.getAll();
+
+        createAndShowCollectionView("TreeType", treeTypes);
     }
 }

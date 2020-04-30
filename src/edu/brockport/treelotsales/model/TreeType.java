@@ -193,7 +193,19 @@ public class TreeType extends EntityBase implements IModel {
         }
 
     public void createAndShowUpdateTreeTypeView(){
-        //to be written at a later date
+        Scene currentScene = myViews.get("UpdateTreeTypeView");
+
+        if(currentScene == null){
+            View view = ViewFactory.createView("UpdateTreeTypeView", this);
+            currentScene = new Scene(view);
+            myViews.put("UpdateTreeTypeView", currentScene);
+        }
+
+        myStage.setScene(currentScene);
+        myStage.sizeToScene();
+
+        //Place in center
+        WindowPosition.placeCenter(myStage);
     }
 
     public void createAndShowDeleteTreeTypeView(){

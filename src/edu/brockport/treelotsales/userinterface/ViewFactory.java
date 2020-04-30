@@ -33,6 +33,8 @@ public class ViewFactory {
 			return new TreeTypeView(model);
 		}else if(viewName.equals("TreeTypeCollectionView")){
 			return new TreeTypeCollectionView(model);
+		}else if(viewName.equals("UpdateTreeTypeView")){
+			return new UpdateTreeTypeView(model);
 		} else {
 			return null;
 		}

@@ -26,7 +26,6 @@ public class TreeTypeCollectionView extends View{
     private TableView<TreeTypeTableModel> tableOfTreeTypes;
     private Button cancelButton;
     private Button updateButton;
-    private Button deleteButton;
     private MessageView statusLog;
 
     public TreeTypeCollectionView(IModel treeTypeCollection){
@@ -141,7 +140,6 @@ public class TreeTypeCollectionView extends View{
 
         cancelButton = new Button("Done");
         updateButton = new Button("Update Tree Type");
-        deleteButton = new Button("Delete Tree Type");
 
         //needs to eventually be fixed to go back to scout search view
         //and fixed to be done with low coupling
@@ -159,18 +157,10 @@ public class TreeTypeCollectionView extends View{
             }
         });
 
-        deleteButton.setOnAction(e -> {
-            try {
-                TreeType selectedTreeType = new TreeType(tableOfTreeTypes.getSelectionModel().getSelectedItem().getId());
-                selectedTreeType.createAndShowDeleteTreeTypeView();
-            } catch (InvalidPrimaryKeyException ex) {
-                ex.printStackTrace();
-            }
-        });
 
         HBox btnContainer = new HBox(100);
         btnContainer.setAlignment(Pos.CENTER);
-        btnContainer.getChildren().addAll(updateButton, deleteButton, cancelButton);
+        btnContainer.getChildren().addAll(updateButton, cancelButton);
 
         vbox.getChildren().add(grid);
         vbox.getChildren().add(scrollPane);
