@@ -61,7 +61,7 @@ public class TreeTypeCollection extends EntityBase implements IView {
 
     }
 
-    protected void getAll(){
+    public void getAll(){
         String query = "SELECT * FROM TreeType";
 
         Vector allDataRetrieved = getSelectQueryResult(query);
@@ -139,6 +139,14 @@ public class TreeTypeCollection extends EntityBase implements IView {
         }
 
         return s;
+    }
+
+    public TreeType get(int i){
+        return treeTypes.get(i);
+    }
+
+    public int size(){
+        return treeTypes.size();
     }
 
 

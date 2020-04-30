@@ -3,6 +3,7 @@ package edu.brockport.treelotsales.userinterface;
 import edu.brockport.treelotsales.impresario.IModel;
 import edu.brockport.treelotsales.model.TLC;
 import edu.brockport.treelotsales.model.TreeType;
+import edu.brockport.treelotsales.model.TreeTypeCollection;
 import edu.brockport.treelotsales.utilities.Utilities;
 import javafx.beans.binding.Bindings;
 import javafx.geometry.Insets;
@@ -11,21 +12,25 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import java.util.Calendar;
 import java.util.Properties;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class TreeView extends View {
     private MessageView statusLog;
 
     private Label barcodeLabel;
+    private Label treeTypeLabel;
     private Label notesLabel;
     private Label statusLabel;
 //    private Label dateStatusUpdatedLabel;
 
     private TextField barcodeTF;
+    private TextField treeTypeTF;
     private TextField notesTF;
     private ComboBox<String> statusCB;
 //    private TextField dateStatusUpdatedTF;
@@ -63,24 +68,48 @@ public class TreeView extends View {
     private Node createLabels(){
         VBox labelsBox = new VBox(10);
         barcodeLabel = new Label("Barcode:");
-//        treeTypeLabel = new Label("Tree Type (ID):");
+        treeTypeLabel = new Label("Tree Type:");
         notesLabel = new Label("Notes:");
         statusLabel = new Label("Status");
 //        dateStatusUpdatedLabel = new Label("Last Status Update:");
-        labelsBox.getChildren().addAll(barcodeLabel, notesLabel, statusLabel);
+        labelsBox.getChildren().addAll(barcodeLabel, treeTypeLabel, notesLabel, statusLabel);
         return labelsBox;
     }
 
     private Node createUserInputFields(){
         VBox fieldsBox = new VBox();
         barcodeTF = new TextField();
-//        treeTypeTF = new TextField();
+        treeTypeTF = new TextField();
+        treeTypeTF.setEditable(false);
         notesTF = new TextField();
         statusCB = new ComboBox<String>();
         statusCB.getItems().addAll("Active", "Inactive");
         statusCB.getSelectionModel().selectFirst();
+
+        barcodeTF.setOnKeyTyped((e ->{
+
+
+            if(barcodeTF.getText().length() == 2) {
+
+                String prefix = barcodeTF.getText().substring(0, 2);
+                TreeTypeCollection treeTypes = new TreeTypeCollection();
+                treeTypes.findTreeTypesWithInfo("", prefix);
+                TreeType t = new TreeType();
+
+                for (int i = 0; i < treeTypes.size(); i++) {
+                    if (treeTypes.get(i).getState("BarcodePrefix").equals(prefix)) {
+                        t = treeTypes.get(i);
+                        break;
+                    }
+                }
+
+                treeTypeTF.setText((String)t.getState("TypeDescription"));
+            }
+
+        }));
+
 //        dateStatusUpdatedTF = new TextField();
-        fieldsBox.getChildren().addAll(barcodeTF, notesTF, statusCB);
+        fieldsBox.getChildren().addAll(barcodeTF, treeTypeTF, notesTF, statusCB);
         return fieldsBox;
     }
 
