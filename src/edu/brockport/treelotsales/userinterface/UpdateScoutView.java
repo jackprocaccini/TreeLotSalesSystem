@@ -4,10 +4,7 @@ import edu.brockport.treelotsales.impresario.IModel;
 import edu.brockport.treelotsales.model.TLC;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -18,6 +15,8 @@ import javafx.scene.text.TextAlignment;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Properties;
 
@@ -34,7 +33,7 @@ public class UpdateScoutView extends View {
     private TextField lastNameTF;
     private TextField firstNameTF;
     private TextField middleNameTF;
-    private TextField dateOfBirthTF;
+    private DatePicker dateOfBirth;
     private TextField phoneNumberTF;
     private TextField emailTF;
     private TextField troopIDTF;
@@ -85,10 +84,10 @@ public class UpdateScoutView extends View {
         lastNameLabel = new Label("Last Name");
         middleNameLabel = new Label("Middle Name");
         firstNameLabel = new Label("First Name");
-        dateOfBirthLabel = new Label("DOB (YYYY-MM-DD)");
-        phoneNumberLabel = new Label("Phone Number (digits only)");
+        dateOfBirthLabel = new Label("DOB");
+        phoneNumberLabel = new Label("Phone Number (XXX)XXX-XXXX");
         emailLabel = new Label("Email");
-        troopIDLabel = new Label("Troop ID");
+        troopIDLabel = new Label("Troop ID (9 digits)");
         statusLabel = new Label("Status");
         labelsBox.getChildren().addAll(lastNameLabel, middleNameLabel, firstNameLabel, dateOfBirthLabel,
                 phoneNumberLabel, emailLabel, troopIDLabel, statusLabel);
@@ -96,14 +95,18 @@ public class UpdateScoutView extends View {
         lastNameTF = new TextField((String)myModel.getState("LastName"));
         middleNameTF = new TextField((String)myModel.getState("MiddleName"));
         firstNameTF = new TextField((String)myModel.getState("FirstName"));
-        dateOfBirthTF = new TextField((String)myModel.getState("DateOfBirth"));
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate localDate = LocalDate.parse((String)myModel.getState("DateOfBirth"), formatter);
+        dateOfBirth = new DatePicker(localDate);
+
         phoneNumberTF = new TextField((String)myModel.getState("PhoneNumber"));
         emailTF = new TextField((String)myModel.getState("Email"));
         troopIDTF = new TextField((String)myModel.getState("TroopID"));
         statusCB = new ComboBox<String>();
         statusCB.getItems().addAll("Active", " Inactive");
         statusCB.setValue((String)myModel.getState("Status"));
-        tfBox.getChildren().addAll(lastNameTF, middleNameTF, firstNameTF, dateOfBirthTF, phoneNumberTF,
+        tfBox.getChildren().addAll(lastNameTF, middleNameTF, firstNameTF, dateOfBirth, phoneNumberTF,
                 emailTF, troopIDTF, statusCB);
 
         mainBox.getChildren().addAll(labelsBox, tfBox);
@@ -128,7 +131,7 @@ public class UpdateScoutView extends View {
         String lastName = lastNameTF.getText();
         String firstName = firstNameTF.getText();
         String middleName = middleNameTF.getText();
-        String DOB = dateOfBirthTF.getText();
+        String DOB = dateOfBirth.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         String phoneNumber = phoneNumberTF.getText();
         String email = emailTF.getText();
         String troopID = troopIDTF.getText();

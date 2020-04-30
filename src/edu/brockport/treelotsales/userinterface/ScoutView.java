@@ -84,9 +84,9 @@ public class ScoutView extends View{
         middleNameLabel = new Label("Middle Name");
         firstNameLabel = new Label("First Name");
         dateOfBirthLabel = new Label("DOB (YYYY-MM-DD)");
-        phoneNumberLabel = new Label("Phone Number (digits only)");
+        phoneNumberLabel = new Label("Phone Number (XXX)XXX-XXXX");
         emailLabel = new Label("Email");
-        troopIDLabel = new Label("Troop ID");
+        troopIDLabel = new Label("Troop ID (9 digits)");
         statusLabel = new Label("Status");
         labelsBox.getChildren().addAll(lastNameLabel, middleNameLabel, firstNameLabel, dateOfBirthLabel,
                 phoneNumberLabel, emailLabel, troopIDLabel, statusLabel);
