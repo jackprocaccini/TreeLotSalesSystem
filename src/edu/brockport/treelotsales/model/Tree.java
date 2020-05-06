@@ -104,9 +104,32 @@ public class Tree extends EntityBase implements IModel {
         } else if(key.equals("ProcessNewTree")){
             processTree(value, "New");
 
+        } else if(key.equals("DeleteTree")){
+            deleteTree();
+
+        }else if(key.equals("DeleteTreeView")){
+            createAndShowDeleteTreeView();
+
         } else {
             myRegistry.updateSubscribers(key, this);
         }
+    }
+
+    private void createAndShowDeleteTreeView() {
+        Scene currentScene = myViews.get("DeleteTreeView");
+
+        if(currentScene == null){
+            View view = ViewFactory.createView("DeleteTreeView", this);
+            // if (view == null) System.out.println("Null book view");
+            currentScene = new Scene(view);
+            myViews.put("DeleteTreeView", currentScene);
+        }
+
+        myStage.setScene(currentScene);
+        myStage.sizeToScene();
+
+        //Place in center
+        WindowPosition.placeCenter(myStage);
     }
 
     @Override
@@ -120,6 +143,14 @@ public class Tree extends EntityBase implements IModel {
         System.out.println("Processing tree with props");
         this.persistentState = (Properties)props;
         updateStateInDatabase(type);
+    }
+
+    private void deleteTree(){
+        try {
+            deletePersistentState(mySchema, persistentState);
+        } catch (SQLException e){
+            updateStatusMessage = "Error deleting Tree!";
+        }
     }
 
     private void updateStateInDatabase(String type) {

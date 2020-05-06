@@ -65,7 +65,7 @@ public class UpdateOrDeleteTreeView extends View {
 
     private Node createLabels(){
         VBox labelsBox = new VBox(10);
-        barcodeLabel = new Label("Barcode: ");
+        barcodeLabel = new Label("Barcode (6 digits): ");
         treeTypeLabel = new Label("Tree Type (ID):");
         notesLabel = new Label("Notes:");
         statusLabel = new Label("Status");
@@ -104,9 +104,7 @@ public class UpdateOrDeleteTreeView extends View {
         });
 
         deleteButton.setOnAction(e -> {
-            statusCB.setValue("Inactive");
-            verifyInputs();
-            displayMessage("Tree Successfully Deleted!");
+            myModel.stateChangeRequest("DeleteTreeView", null);
         });
 
         buttonsBox.getChildren().addAll(updateButton, deleteButton, cancelButton);

@@ -15,15 +15,15 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
 
-public class DeleteScoutView extends View {
+public class DeleteTreeView extends View {
     private Text prompt;
     private Button yesButton;
     private Button noButton;
 
     private MessageView statusLog;
 
-    public DeleteScoutView(IModel scout) {
-        super(scout, "DeleteScout");
+    public DeleteTreeView(IModel scout) {
+        super(scout, "DeleteTree");
 
         VBox container = new VBox(10);
         container.setPadding(new Insets(10, 10, 10, 10));
@@ -40,7 +40,7 @@ public class DeleteScoutView extends View {
         HBox buttonBox = new HBox(10);
         yesButton = new Button("Yes");
         yesButton.setOnAction(e -> {
-            myModel.stateChangeRequest("DeleteScout", null);
+            myModel.stateChangeRequest("DeleteTree", null);
             TLC l = new TLC();
             l.createAndShowTLCView();
         });
@@ -58,7 +58,7 @@ public class DeleteScoutView extends View {
 
     private Node createBody() {
         HBox mainBox = new HBox(10);
-        prompt = new Text("Are you sure you want to delete this scout?: " + (String)myModel.getState("FirstName") + " " + (String)myModel.getState("LastName"));
+        prompt = new Text("Are you sure you want to delete this tree?: " + (String)myModel.getState("Barcode"));
         prompt.setFont(Font.font("Arial", FontWeight.BOLD, 15));
         mainBox.getChildren().add(prompt);
 
@@ -67,7 +67,7 @@ public class DeleteScoutView extends View {
     }
 
     private Node createTitle() {
-        Text titleText = new Text("Delete a Scout");
+        Text titleText = new Text("Delete a Tree");
         titleText.setFont(Font.font("Arial", FontWeight.BOLD, 20));
         titleText.setTextAlignment(TextAlignment.CENTER);
         titleText.setFill(Color.DARKGREEN);
