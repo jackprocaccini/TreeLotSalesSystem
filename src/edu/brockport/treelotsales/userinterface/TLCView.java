@@ -51,8 +51,8 @@ public class TLCView extends View {
         updateDeleteScoutButton = new Button("Update/Delete Scout");
         addTreeButton = new Button("Add Tree");
         updateDeleteTreeButton = new Button("Update/Delete Tree");
-        addTreeTypeButton = new Button("Add a Tree Type");
-        updateTreeTypeButton = new Button("Update a Tree type");
+        addTreeTypeButton = new Button("Add Tree Type");
+        updateTreeTypeButton = new Button("Update Tree type");
 
         registerScoutButton.setOnAction(e -> {
             myModel.stateChangeRequest("RegisterScout", null);

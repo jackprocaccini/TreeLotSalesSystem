@@ -18,6 +18,7 @@ import javafx.scene.layout.VBox;
 
 import java.util.Calendar;
 import java.util.Properties;
+import java.util.Vector;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class TreeView extends View {
@@ -139,19 +140,30 @@ public class TreeView extends View {
 
     private void verifyInputs(){
         String barcodeText = barcodeTF.getText().trim();
-        String treeTypeText = barcodeText.substring(0,2);
-        System.out.println(treeTypeText);
+
+        //gets treetype ID from barcode prefix
+        String barcodePrefix = barcodeText.substring(0,2);
+        TreeTypeCollection treeTypes = new TreeTypeCollection();
+        treeTypes.findTreeTypesWithInfo("", barcodePrefix);
+        TreeType thisTreeType = new TreeType();
+        for(int i=0; i<treeTypes.size(); i++){
+            if(treeTypes.get(i).getState("BarcodePrefix").equals(barcodePrefix)){
+                thisTreeType = treeTypes.get(i);
+            }
+        }
+        String treeTypeIDText = (String)thisTreeType.getState("ID");
+
         String notesText = notesTF.getText().trim();
         String statusText = statusCB.getValue();
 
-        if(barcodeText.isEmpty() || treeTypeText.isEmpty()){
+        if(barcodeText.isEmpty() || barcodePrefix.isEmpty()){
             System.out.println("barcode text or tree type text is empty");
             updateState("InputError", "Barcode and Tree Type fields must not be empty.");
         } else {
             System.out.println("creating properties");
             Properties props = new Properties();
             props.setProperty("Barcode", barcodeText);
-            props.setProperty("TreeType", treeTypeText);
+            props.setProperty("TreeType", treeTypeIDText);
 
             if(notesText.isEmpty()){
                 props.setProperty("Notes", "None");
