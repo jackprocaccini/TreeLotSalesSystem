@@ -108,6 +108,10 @@ public class Session extends EntityBase implements IModel {
             processSession(value);
         }else if(key.equals("SelectScouts")){
             createAndShowSelectScoutsView();
+        }else if(key.equals("Closed")){
+            createAndShowSessionClosedView();
+        }else if(key.equals("Update")){
+            updateStateInDatabase();
         }else{
             myRegistry.updateSubscribers(key, this);
         }
@@ -148,6 +152,8 @@ public class Session extends EntityBase implements IModel {
         }
     }
 
+
+
     public static int compare(Session a, Session b)
     {
         String aNum = (String)a.getState("ID");
@@ -181,10 +187,45 @@ public class Session extends EntityBase implements IModel {
         WindowPosition.placeCenter(myStage);
     }
 
+    public void createAndShowSessionClosedView(){
+        Scene currentScene = myViews.get("SessionClosedView");
+
+        if(currentScene == null){
+            View view = ViewFactory.createView("SessionClosedView", this);
+            // if (view == null) System.out.println("Null book view");
+            currentScene = new Scene(view);
+            myViews.put("SessionClosedView", currentScene);
+        }
+
+        myStage.setScene(currentScene);
+        myStage.sizeToScene();
+
+        //Place in center
+        WindowPosition.placeCenter(myStage);
+    }
+
+    public void createAndShowCloseSessionView(){
+        Scene currentScene = myViews.get("CloseSessionView");
+
+        if(currentScene == null){
+            View view = ViewFactory.createView("CloseSessionView", this);
+            // if (view == null) System.out.println("Null book view");
+            currentScene = new Scene(view);
+            myViews.put("CloseSessionView", currentScene);
+        }
+
+        myStage.setScene(currentScene);
+        myStage.sizeToScene();
+
+        //Place in center
+        WindowPosition.placeCenter(myStage);
+    }
+
+
     public void updateState(String key, Object value) {
         if(key.equals("ID") || key.equals("StartDate") || key.equals("StartTime")
                 || key.equals("EndTime") || key.equals("StartingCash") || key.equals("EndingCash")
-                || key.equals("TotalCheckTransactionAmount") || key.equals("Notes")){
+                || key.equals("TotalCheckTransactionsAmount") || key.equals("Notes")){
             persistentState.setProperty(key, (String)value);
         }else{
             stateChangeRequest(key, value);

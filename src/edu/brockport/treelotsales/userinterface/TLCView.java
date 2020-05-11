@@ -1,6 +1,8 @@
 package edu.brockport.treelotsales.userinterface;
 
 import edu.brockport.treelotsales.impresario.IModel;
+import edu.brockport.treelotsales.model.SessionCollection;
+import javafx.beans.binding.Bindings;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -20,7 +22,9 @@ public class TLCView extends View {
     private Button addTreeTypeButton;
     private Button updateTreeTypeButton;
     private Button openShiftButton;
+    private Button closeShiftButton;
     private Button sellTreeButton;
+
 
     private MessageView statusLog;
 
@@ -56,6 +60,7 @@ public class TLCView extends View {
         addTreeTypeButton = new Button("Add Tree Type");
         updateTreeTypeButton = new Button("Update Tree type");
         openShiftButton = new Button("Open Shift");
+        closeShiftButton = new Button("Close Shift");
         sellTreeButton = new Button("Sell Tree");
 
         registerScoutButton.setOnAction(e -> {
@@ -83,7 +88,16 @@ public class TLCView extends View {
         });
 
         openShiftButton.setOnAction(e -> {
-            myModel.stateChangeRequest("OpenShift", null);
+            if(new SessionCollection().getActiveSession() == null){
+                myModel.stateChangeRequest("OpenShift", null);
+            }else{
+                displayErrorMessage("There is already an open Shift");
+            }
+
+        });
+
+        closeShiftButton.setOnAction(e -> {
+            myModel.stateChangeRequest("CloseShift", null);
         });
 
         sellTreeButton.setOnAction(e -> {
@@ -91,7 +105,7 @@ public class TLCView extends View {
         });
 
         buttonBox.getChildren().addAll(registerScoutButton, updateDeleteScoutButton, addTreeButton,
-                updateDeleteTreeButton, addTreeTypeButton, updateTreeTypeButton, openShiftButton, sellTreeButton);
+                updateDeleteTreeButton, addTreeTypeButton, updateTreeTypeButton, openShiftButton, closeShiftButton, sellTreeButton);
 
         return buttonBox;
     }

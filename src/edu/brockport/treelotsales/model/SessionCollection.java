@@ -26,7 +26,9 @@ public class SessionCollection extends EntityBase implements IView {
         String query = "SELECT * FROM Session WHERE EndingCash IS NULL";
         Vector allDataRetrieved = getSelectQueryResult(query);
 
-        return new Session((Properties)(allDataRetrieved.get(0)));
+        Session s = (allDataRetrieved.size() == 0) ? null : new Session((Properties)(allDataRetrieved.get(0)));
+
+        return s;
     }
 
     private int findIndexToAdd(Session a)

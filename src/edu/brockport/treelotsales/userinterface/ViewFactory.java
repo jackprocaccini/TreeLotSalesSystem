@@ -49,6 +49,10 @@ public class ViewFactory {
 			return new TransactionView(model);
 		}else if(viewName.equals("ConfirmCostView")){
 			return new ConfirmCostView(model);
+		} else if(viewName.equals("CloseSessionView")){
+			return new CloseSessionView(model);
+		}else if(viewName.equals("SessionClosedView")){
+			return new SessionClosedView(model);
 		}  else {
 			return null;
 		}

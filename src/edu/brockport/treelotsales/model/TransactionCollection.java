@@ -55,6 +55,17 @@ public class TransactionCollection extends EntityBase implements IView {
         return low;
     }
 
+    public void getTransactionsFromSession(Session session){
+        String query = "SELECT * FROM Transaction WHERE SessionID = " + (String)session.getState("ID");
+
+        Vector allDataRetrieved = getSelectQueryResult(query);
+
+        for(int i = 0; i < allDataRetrieved.size(); i++) {
+            Transaction t = new Transaction((Properties)(allDataRetrieved.get(i)));
+            addTransaction(t);
+        }
+    }
+
     @Override
     public Object getState(String key)
     {
@@ -64,6 +75,14 @@ public class TransactionCollection extends EntityBase implements IView {
         if (key.equals("TransactionList"))
             return this;
         return null;
+    }
+
+    public int size(){
+        return transactions.size();
+    }
+
+    public Transaction get(int i){
+        return transactions.get(i);
     }
 
     @Override

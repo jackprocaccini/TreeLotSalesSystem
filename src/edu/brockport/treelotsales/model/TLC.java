@@ -80,11 +80,47 @@ public class TLC implements IView, IModel {
             openShift();
         }else if (key.equals("SellTree")){
             sellTree();
+        }else if (key.equals("CloseShift")){
+            closeShift();
         } else if(key.equals("Done")){
             createAndShowTLCView();
         }
 
         myRegistry.updateSubscribers(key, this);
+    }
+
+    private void closeShift() {
+        Session session = new SessionCollection().getActiveSession();
+        TransactionCollection transactions = new TransactionCollection();
+        transactions.getTransactionsFromSession(session);
+
+        int startingCash = Integer.parseInt((String)session.getState("StartingCash"));
+        int transactionCashAmount = 0;
+        int checkAmount = 0;
+
+        for(int i=0; i<transactions.size(); i++){
+            System.out.println("I got in the loop!");
+
+            Transaction transaction = transactions.get(i);
+            String type = (String)transaction.getState("PaymentMethod");
+            int amount = Integer.parseInt((String)transaction.getState("TransactionAmount"));
+            System.out.println(amount);
+
+            if(type.equals("Cash")){
+                transactionCashAmount += amount;
+            }else{
+                checkAmount += amount;
+            }
+        }
+
+        int endingCash = startingCash + transactionCashAmount;
+
+        System.out.println(endingCash);
+        System.out.println(checkAmount);
+
+        session.updateState("EndingCash", ""+endingCash);
+        session.updateState("TotalCheckTransactionsAmount", ""+checkAmount);
+        session.createAndShowCloseSessionView();
     }
 
     private void sellTree() {

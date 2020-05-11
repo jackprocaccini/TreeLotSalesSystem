@@ -87,14 +87,13 @@ public class TreeView extends View {
         statusCB.getItems().addAll("Available", "Damaged");
         statusCB.getSelectionModel().selectFirst();
 
+        TreeTypeCollection treeTypes = new TreeTypeCollection();
+        treeTypes.getAll();
         barcodeTF.setOnKeyTyped((e ->{
 
-
-            if(barcodeTF.getText().length() == 2) {
+            if(barcodeTF.getText().length() >= 2) {
 
                 String prefix = barcodeTF.getText().substring(0, 2);
-                TreeTypeCollection treeTypes = new TreeTypeCollection();
-                treeTypes.findTreeTypesWithInfo("", prefix);
                 TreeType t = new TreeType();
 
                 for (int i = 0; i < treeTypes.size(); i++) {

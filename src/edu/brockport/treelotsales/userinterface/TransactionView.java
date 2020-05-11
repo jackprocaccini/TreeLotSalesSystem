@@ -59,6 +59,7 @@ public class TransactionView extends View{
         submitButton = new Button("Submit");
         submitButton.setOnAction(e -> {
             verifyInputs();
+            new TLC().createAndShowTLCView();
         });
 
         cancelButton = new Button("Done");
