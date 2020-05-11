@@ -2,6 +2,10 @@ package edu.brockport.treelotsales.model;
 
 import edu.brockport.treelotsales.exception.InvalidPrimaryKeyException;
 import edu.brockport.treelotsales.impresario.IModel;
+import edu.brockport.treelotsales.userinterface.View;
+import edu.brockport.treelotsales.userinterface.ViewFactory;
+import edu.brockport.treelotsales.userinterface.WindowPosition;
+import javafx.scene.Scene;
 
 import java.sql.SQLException;
 import java.util.Enumeration;
@@ -95,7 +99,9 @@ public class Transaction extends EntityBase implements IModel {
     public void stateChangeRequest(String key, Object value) {
         if (key.equals("ProcessTransaction")) {
             processTransaction(value);
-        } else {
+        }else if(key.equals("TransactionView")){
+            createAndShowTransactionView();
+        }else {
             myRegistry.updateSubscribers(key, this);
         }
     }
@@ -134,6 +140,41 @@ public class Transaction extends EntityBase implements IModel {
         }
     }
 
+    public void createAndShowTransactionView(){
+        Scene currentScene = myViews.get("TransactionView");
+
+        if(currentScene == null){
+            View view = ViewFactory.createView("TransactionView", this);
+            // if (view == null) System.out.println("Null book view");
+            currentScene = new Scene(view);
+            myViews.put("TransactionView", currentScene);
+        }
+
+        myStage.setScene(currentScene);
+        myStage.sizeToScene();
+
+        //Place in center
+        WindowPosition.placeCenter(myStage);
+    }
+
+    public void createAndShowConfirmCostView(){
+        Scene currentScene = myViews.get("ConfirmCostView");
+
+        if(currentScene == null){
+            View view = ViewFactory.createView("ConfirmCostView", this);
+            // if (view == null) System.out.println("Null book view");
+            currentScene = new Scene(view);
+            myViews.put("ConfirmCostView", currentScene);
+        }
+
+        myStage.setScene(currentScene);
+        myStage.sizeToScene();
+
+        //Place in center
+        WindowPosition.placeCenter(myStage);
+    }
+
+
     public static int compare(Transaction a, Transaction b) {
         String aNum = (String) a.getState("ID");
         String bNum = (String) b.getState("ID");
@@ -151,6 +192,11 @@ public class Transaction extends EntityBase implements IModel {
     }
 
     public void updateState(String key, Object value) {
+        if(key.equals("ID") || key.equals("SessionID") || key.equals("TransactionType") || key.equals("PaymentMethod") || key.equals("Barcode")
+        || key.equals("TransactionAmount") || key.equals("CustomerName") || key.equals("CustomerPhone") || key.equals("CustomerEmail") || key.equals("TransactionEmail")
+        || key.equals("TransactionTime") || key.equals("DateStatusUpdated")){
+            persistentState.setProperty(key, (String)value);
+        }
         stateChangeRequest(key, value);
     }
 

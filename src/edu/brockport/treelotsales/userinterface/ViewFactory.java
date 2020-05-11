@@ -43,6 +43,12 @@ public class ViewFactory {
 			return new SelectScoutsView(model);
 		}else if(viewName.equals("CompanionView")){
 			return new CompanionView(model);
+		}else if(viewName.equals("GetTreeView")){
+			return new GetTreeView(model);
+		}else if(viewName.equals("TransactionView")){
+			return new TransactionView(model);
+		}else if(viewName.equals("ConfirmCostView")){
+			return new ConfirmCostView(model);
 		}  else {
 			return null;
 		}

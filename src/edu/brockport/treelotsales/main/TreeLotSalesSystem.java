@@ -23,6 +23,7 @@ public class TreeLotSalesSystem extends Application {
 
         MainStageContainer.setStage(stage, "Tree Lot Sales System");
         Stage mainStage = MainStageContainer.getInstance();
+        mainStage.setResizable(true);
 
         mainStage.setOnCloseRequest(e -> {
             System.exit(0);

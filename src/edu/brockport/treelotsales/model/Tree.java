@@ -256,6 +256,23 @@ public class Tree extends EntityBase implements IModel {
         WindowPosition.placeCenter(myStage);
     }
 
+    public void createAndShowGetTreeView(){
+        Scene currentScene = myViews.get("GetTreeView");
+
+        if(currentScene == null){
+            View view = ViewFactory.createView("GetTreeView", this);
+            // if (view == null) System.out.println("Null book view");
+            currentScene = new Scene(view);
+            myViews.put("GetTreeView", currentScene);
+        }
+
+        myStage.setScene(currentScene);
+        myStage.sizeToScene();
+
+        //Place in center
+        WindowPosition.placeCenter(myStage);
+    }
+
     public void createAndShowUpdateOrDeleteTreeView(){
         Scene currentScene = myViews.get("UpdateOrDeleteTreeView");
 

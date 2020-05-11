@@ -78,11 +78,18 @@ public class TLC implements IView, IModel {
             updateTreeType();
         }else if (key.equals("OpenShift")){
             openShift();
+        }else if (key.equals("SellTree")){
+            sellTree();
         } else if(key.equals("Done")){
             createAndShowTLCView();
         }
 
         myRegistry.updateSubscribers(key, this);
+    }
+
+    private void sellTree() {
+        Tree tree = new Tree();
+        tree.createAndShowGetTreeView();
     }
 
     private void openShift() {

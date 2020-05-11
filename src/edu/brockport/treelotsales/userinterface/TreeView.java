@@ -84,7 +84,7 @@ public class TreeView extends View {
         treeTypeTF.setEditable(false);
         notesTF = new TextField();
         statusCB = new ComboBox<String>();
-        statusCB.getItems().addAll("Active", "Inactive");
+        statusCB.getItems().addAll("Available", "Damaged");
         statusCB.getSelectionModel().selectFirst();
 
         barcodeTF.setOnKeyTyped((e ->{

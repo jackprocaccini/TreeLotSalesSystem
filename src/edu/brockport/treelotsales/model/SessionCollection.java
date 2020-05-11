@@ -22,6 +22,13 @@ public class SessionCollection extends EntityBase implements IView {
         sessions.insertElementAt(s,index); // To build up a collection sorted on some key
     }
 
+    public Session getActiveSession(){
+        String query = "SELECT * FROM Session WHERE EndingCash IS NULL";
+        Vector allDataRetrieved = getSelectQueryResult(query);
+
+        return new Session((Properties)(allDataRetrieved.get(0)));
+    }
+
     private int findIndexToAdd(Session a)
     {
         //users.add(u);
