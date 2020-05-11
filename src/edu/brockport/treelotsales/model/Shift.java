@@ -132,9 +132,9 @@ public class Shift extends EntityBase implements IModel {
                 updatePersistentState(mySchema, persistentState, whereClause);
                 updateStatusMessage = "Shift data for shift number : " + persistentState.getProperty("ID") + " updated successfully in database!";
             } else {
-                Integer scoutID =
+                Integer shiftID =
                         insertAutoIncrementalPersistentState(mySchema, persistentState);
-                persistentState.setProperty("ID", "" + scoutID);
+                persistentState.setProperty("ID", "" + shiftID);
                 updateStatusMessage = "Shift data for new shift : "
                         + persistentState.getProperty("ID")
                         + "installed successfully in database!";

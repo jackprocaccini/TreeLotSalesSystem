@@ -1,6 +1,8 @@
 package edu.brockport.treelotsales.userinterface;
 
+import edu.brockport.treelotsales.exception.InvalidPrimaryKeyException;
 import edu.brockport.treelotsales.impresario.IModel;
+import edu.brockport.treelotsales.model.Session;
 import edu.brockport.treelotsales.model.TLC;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
@@ -49,7 +51,6 @@ public class CompanionView extends View{
         submitButton = new Button("Submit");
         submitButton.setOnAction(e -> {
             verifyInputs();
-            myModel.stateChangeRequest("SelectScouts", null);
         });
 
         cancelButton = new Button("Done");
@@ -121,7 +122,10 @@ public class CompanionView extends View{
 
         if(!isError) {
             Properties props = new Properties();
-            props.setProperty("Companion", companion);
+            props.setProperty("SessionID", (String)myModel.getState("SessionID"));
+            props.setProperty("ScoutID", (String)myModel.getState("ScoutID"));
+            props.setProperty("StartTime", (String)myModel.getState("StartTime"));
+            props.setProperty("CompanionName", companion);
             props.setProperty("EndTime", endTime);
 
             SimpleDateFormat format = new SimpleDateFormat("h:mm a");
@@ -143,6 +147,12 @@ public class CompanionView extends View{
 
             myModel.stateChangeRequest("ProcessShift", props);
             displayMessage("");
+
+            try {
+                new Session((String)myModel.getState("SessionID")).stateChangeRequest("SelectScouts", null);
+            } catch (InvalidPrimaryKeyException ex) {
+                ex.printStackTrace();
+            }
         }
 
     }
