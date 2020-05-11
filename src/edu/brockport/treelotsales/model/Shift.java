@@ -2,6 +2,10 @@ package edu.brockport.treelotsales.model;
 
 import edu.brockport.treelotsales.exception.InvalidPrimaryKeyException;
 import edu.brockport.treelotsales.impresario.IModel;
+import edu.brockport.treelotsales.userinterface.View;
+import edu.brockport.treelotsales.userinterface.ViewFactory;
+import edu.brockport.treelotsales.userinterface.WindowPosition;
+import javafx.scene.Scene;
 
 import java.sql.SQLException;
 import java.util.Enumeration;
@@ -89,7 +93,11 @@ public class Shift extends EntityBase implements IModel {
     public Object getState(String key) {
         if(key.equals("UpdateStatusMessage")){
             return updateStatusMessage;
-        } else {
+        } else if(key.equals("StartTime") || key.equals("ID") || key.equals("SessionID")
+        || key.equals("ScoutID") || key.equals("CompanionName") || key.equals("EndTime")
+        || key.equals("CompanionHours")){
+            return persistentState.getProperty(key);
+        } else{
             return persistentState.getProperty(key);
         }
     }
@@ -97,7 +105,7 @@ public class Shift extends EntityBase implements IModel {
     @Override
     public void stateChangeRequest(String key, Object value) {
         if(key.equals("ProcessShift")){
-            processScout(value);
+            processShift(value);
         }else{
             myRegistry.updateSubscribers(key, this);
         }
@@ -111,7 +119,7 @@ public class Shift extends EntityBase implements IModel {
         }
     }
 
-    private void processScout(Object props){
+    private void processShift(Object props){
         this.persistentState = (Properties)(props);
         updateStateInDatabase();
     }
@@ -138,6 +146,23 @@ public class Shift extends EntityBase implements IModel {
         }
     }
 
+    public void createAndShowCompanionView(){
+        Scene currentScene = myViews.get("CompanionView");
+
+        if(currentScene == null){
+            View view = ViewFactory.createView("CompanionView", this);
+            // if (view == null) System.out.println("Null book view");
+            currentScene = new Scene(view);
+            myViews.put("CompanionView", currentScene);
+        }
+
+        myStage.setScene(currentScene);
+        myStage.sizeToScene();
+
+        //Place in center
+        WindowPosition.placeCenter(myStage);
+    }
+
     public static int compare(Shift a, Shift b)
     {
         String aNum = (String)a.getState("ID");
@@ -154,7 +179,13 @@ public class Shift extends EntityBase implements IModel {
     }
 
     public void updateState(String key, Object value) {
-        stateChangeRequest(key, value);
+        if((key.equals("StartTime") || key.equals("ID") || key.equals("SessionID")
+                || key.equals("ScoutID") || key.equals("CompanionName") || key.equals("EndTime")
+                || key.equals("CompanionHours"))){
+            persistentState.setProperty(key, (String)value);
+        }else {
+            stateChangeRequest(key, value);
+        }
     }
 
     public Vector<String> getEntryListView(){

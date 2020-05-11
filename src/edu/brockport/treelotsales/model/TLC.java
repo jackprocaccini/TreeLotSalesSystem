@@ -66,8 +66,7 @@ public class TLC implements IView, IModel {
             addTree();
         }else if(key.equals("DoScoutSearch")){
             searchScouts((Scout)value);
-        }
-        else if (key.equals("ScoutSearch")){
+        } else if (key.equals("ScoutSearch")){
             getScoutSearchView();
         }else if (key.equals("TreeSearch")){
             getTreeSearchView();
@@ -77,11 +76,19 @@ public class TLC implements IView, IModel {
             addTreeType();
         }else if (key.equals("UpdateTreeType")){
             updateTreeType();
+        }else if (key.equals("OpenShift")){
+            openShift();
         } else if(key.equals("Done")){
             createAndShowTLCView();
         }
 
         myRegistry.updateSubscribers(key, this);
+    }
+
+    private void openShift() {
+        Session shift = new Session();
+        shift.createAndShowShiftView();
+
     }
 
     private void getScoutSearchView() {
@@ -181,8 +188,6 @@ public class TLC implements IView, IModel {
         }catch(InvalidPrimaryKeyException e){
             e.printStackTrace();
         }
-
-
     }
 
     public void createAndShowSearchView(String type){

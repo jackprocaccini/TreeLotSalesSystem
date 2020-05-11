@@ -37,7 +37,13 @@ public class ViewFactory {
 			return new UpdateTreeTypeView(model);
 		}else if(viewName.equals("DeleteTreeView")){
 			return new DeleteTreeView(model);
-		} else {
+		}else if(viewName.equals("ShiftView")){
+			return new SessionView(model);
+		}else if(viewName.equals("SelectScoutsView")){
+			return new SelectScoutsView(model);
+		}else if(viewName.equals("CompanionView")){
+			return new CompanionView(model);
+		}  else {
 			return null;
 		}
 	}

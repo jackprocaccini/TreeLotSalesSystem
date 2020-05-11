@@ -2,6 +2,10 @@ package edu.brockport.treelotsales.model;
 
 import edu.brockport.treelotsales.exception.InvalidPrimaryKeyException;
 import edu.brockport.treelotsales.impresario.IModel;
+import edu.brockport.treelotsales.userinterface.View;
+import edu.brockport.treelotsales.userinterface.ViewFactory;
+import edu.brockport.treelotsales.userinterface.WindowPosition;
+import javafx.scene.Scene;
 
 import java.sql.SQLException;
 import java.util.Enumeration;
@@ -89,7 +93,11 @@ public class Session extends EntityBase implements IModel {
     public Object getState(String key) {
         if(key.equals("UpdateStatusMessage")){
             return updateStatusMessage;
-        } else {
+        } else if(key.equals("ID") || key.equals("StartDate") || key.equals("StartTime")
+        || key.equals("EndTime") || key.equals("StartingCash") || key.equals("EndingCash")
+        || key.equals("TotalCheckTransactionAmount") || key.equals("Notes")) {
+            return persistentState.getProperty(key);
+        }else{
             return persistentState.getProperty(key);
         }
     }
@@ -97,7 +105,9 @@ public class Session extends EntityBase implements IModel {
     @Override
     public void stateChangeRequest(String key, Object value) {
         if(key.equals("ProcessSession")){
-            processScout(value);
+            processSession(value);
+        }else if(key.equals("SelectScouts")){
+            createAndShowSelectScoutsView();
         }else{
             myRegistry.updateSubscribers(key, this);
         }
@@ -111,7 +121,7 @@ public class Session extends EntityBase implements IModel {
         }
     }
 
-    private void processScout(Object props){
+    private void processSession(Object props){
         this.persistentState = (Properties)(props);
         updateStateInDatabase();
     }
@@ -124,9 +134,9 @@ public class Session extends EntityBase implements IModel {
                 updatePersistentState(mySchema, persistentState, whereClause);
                 updateStatusMessage = "Session data for session number : " + persistentState.getProperty("ID") + " updated successfully in database!";
             } else {
-                Integer scoutID =
+                Integer sessionID =
                         insertAutoIncrementalPersistentState(mySchema, persistentState);
-                persistentState.setProperty("ID", "" + scoutID);
+                persistentState.setProperty("ID", "" + sessionID);
                 updateStatusMessage = "Session data for new session : "
                         + persistentState.getProperty("ID")
                         + "installed successfully in database!";
@@ -154,8 +164,31 @@ public class Session extends EntityBase implements IModel {
                 "; Notes = " + persistentState.getProperty("Notes");
     }
 
+    public void createAndShowSelectScoutsView(){
+        Scene currentScene = myViews.get("SelectScoutsView");
+
+        if(currentScene == null){
+            View view = ViewFactory.createView("SelectScoutsView", this);
+            // if (view == null) System.out.println("Null book view");
+            currentScene = new Scene(view);
+            myViews.put("SelectScoutView", currentScene);
+        }
+
+        myStage.setScene(currentScene);
+        myStage.sizeToScene();
+
+        //Place in center
+        WindowPosition.placeCenter(myStage);
+    }
+
     public void updateState(String key, Object value) {
-        stateChangeRequest(key, value);
+        if(key.equals("ID") || key.equals("StartDate") || key.equals("StartTime")
+                || key.equals("EndTime") || key.equals("StartingCash") || key.equals("EndingCash")
+                || key.equals("TotalCheckTransactionAmount") || key.equals("Notes")){
+            persistentState.setProperty(key, (String)value);
+        }else{
+            stateChangeRequest(key, value);
+        }
     }
 
     public Vector<String> getEntryListView(){
@@ -171,6 +204,23 @@ public class Session extends EntityBase implements IModel {
         entryList.add(persistentState.getProperty("Notes"));
 
         return entryList;
+    }
+
+    public void createAndShowShiftView(){
+        Scene currentScene = myViews.get("ShiftView");
+
+        if(currentScene == null){
+            View view = ViewFactory.createView("ShiftView", this);
+            // if (view == null) System.out.println("Null book view");
+            currentScene = new Scene(view);
+            myViews.put("ShiftView", currentScene);
+        }
+
+        myStage.setScene(currentScene);
+        myStage.sizeToScene();
+
+        //Place in center
+        WindowPosition.placeCenter(myStage);
     }
 
     public void update(){

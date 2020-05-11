@@ -44,8 +44,8 @@ public class ScoutView extends View{
 
     private MessageView statusLog;
 
-    public ScoutView(IModel book){
-        super(book, "ScoutView");
+    public ScoutView(IModel scout){
+        super(scout, "ScoutView");
 
         VBox container = new VBox(10);
         container.setPadding(new Insets(10, 10, 10, 10));

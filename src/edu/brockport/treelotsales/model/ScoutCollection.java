@@ -69,6 +69,17 @@ public class ScoutCollection extends EntityBase implements IView {
 
     }
 
+    public void lookupAll() {
+        String query = "SELECT * FROM Scout";
+        Vector allDataRetrieved = getSelectQueryResult(query);
+
+        for(int i = 0; i < allDataRetrieved.size(); i++) {
+            Scout s = new Scout((Properties)(allDataRetrieved.get(i)));
+            addScout(s);
+        }
+
+    }
+
     private void addScout(Scout s)
     {
         //accounts.add(a);
