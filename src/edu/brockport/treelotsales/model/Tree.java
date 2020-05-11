@@ -110,6 +110,9 @@ public class Tree extends EntityBase implements IModel {
         }else if(key.equals("DeleteTreeView")){
             createAndShowDeleteTreeView();
 
+        }else if(key.equals("UpdateTree")){
+            updateTree();
+
         } else {
             myRegistry.updateSubscribers(key, this);
         }
@@ -143,6 +146,10 @@ public class Tree extends EntityBase implements IModel {
         System.out.println("Processing tree with props");
         this.persistentState = (Properties)props;
         updateStateInDatabase(type);
+    }
+
+    private void updateTree(){
+        updateStateInDatabase("Update");
     }
 
     private void deleteTree(){

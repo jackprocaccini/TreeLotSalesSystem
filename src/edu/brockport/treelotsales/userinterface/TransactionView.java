@@ -1,9 +1,11 @@
 package edu.brockport.treelotsales.userinterface;
 
+import edu.brockport.treelotsales.exception.InvalidPrimaryKeyException;
 import edu.brockport.treelotsales.impresario.IModel;
 import edu.brockport.treelotsales.model.Session;
 import edu.brockport.treelotsales.model.SessionCollection;
 import edu.brockport.treelotsales.model.TLC;
+import edu.brockport.treelotsales.model.Tree;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.*;
@@ -173,8 +175,16 @@ public class TransactionView extends View{
             props.setProperty("SessionID", (String)session.getState("ID"));
 
 
-
             myModel.stateChangeRequest("ProcessTransaction", props);
+
+
+            try{
+                Tree tree = new Tree((String)props.getProperty("Barcode"));
+                tree.updateState("Status", "Sold");
+                tree.stateChangeRequest("UpdateTree", null);
+            }catch(InvalidPrimaryKeyException e){
+                e.printStackTrace();
+            }
             displayMessage("Transaction added Successfully");
 
 
