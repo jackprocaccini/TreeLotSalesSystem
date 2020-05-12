@@ -183,6 +183,8 @@ public class ScoutView extends View{
             displayErrorMessage("Please select a status");
             isError = true;
         }
+
+
         if(!isError) {
             Properties props = new Properties();
             System.out.println(lastName + " " + middleName + " " + status + " " + firstName);

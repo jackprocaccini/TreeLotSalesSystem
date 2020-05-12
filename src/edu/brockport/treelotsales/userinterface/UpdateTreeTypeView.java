@@ -2,6 +2,8 @@ package edu.brockport.treelotsales.userinterface;
 //import packages
 import edu.brockport.treelotsales.impresario.IModel;
 import edu.brockport.treelotsales.model.TLC;
+import edu.brockport.treelotsales.model.TreeType;
+import edu.brockport.treelotsales.model.TreeTypeCollection;
 import javafx.beans.binding.Bindings;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
@@ -118,6 +120,16 @@ public class UpdateTreeTypeView extends View {
         if (costText.trim().isEmpty() || barcodePrefixText.trim().isEmpty() || treeTypeDescriptionText.trim().isEmpty()) {
             System.out.println("Tree Type Description, Cost, or Barcode Prefix is Empty.");
             updateState("InputError", "Tree Type Description, Cost, and Barcode Prefix must not be empty.");
+        }
+
+
+        TreeTypeCollection types = new TreeTypeCollection();
+        types.findTreeTypesWithInfo("", barcodePrefixText);
+        if(types.size() == 1){
+            if(!((String)types.get(0).getState("ID")).equals((String)myModel.getState("ID"))){
+                isError = true;
+                displayErrorMessage("Type already exists with that prefix");
+            }
         }
 
         if(!isError) {
