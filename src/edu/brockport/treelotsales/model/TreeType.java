@@ -208,6 +208,24 @@ public class TreeType extends EntityBase implements IModel {
         WindowPosition.placeCenter(myStage);
     }
 
+    public static TreeType getTreeTypeWithPrefix(String prefix){
+        TreeTypeCollection t = new TreeTypeCollection();
+        t.findTreeTypesWithInfo("",prefix);
+
+        for(int i=0; i<t.size(); i++){
+            if(((String)t.get(i).getState("BarcodePrefix")).equals(prefix)){
+                try{
+                    return new TreeType((String)t.get(i).getState("ID"));
+                }catch(InvalidPrimaryKeyException e){
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        return null;
+    }
+
+
     public void createAndShowDeleteTreeTypeView(){
         //to be written at a later date
     }

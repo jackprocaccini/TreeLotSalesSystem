@@ -36,3 +36,6 @@ Last packet sent to the server was 7 ms ago.>
 [4/29/20, 9:50 PM]|TreeType|insertAutoIncrementalPersistentState|Error|NOTAG|null<SQL Exception: 1062: Duplicate entry '00' for key 'BarcodePrefix'>
 [5/6/20, 1:42 PM]|Tree|insertPersistentState|Error|NOTAG|null<SQL Exception: 1452: Cannot add or update a child row: a foreign key constraint fails (`spr20_csc429_ewhit6`.`Tree`, CONSTRAINT `Tree_ibfk_1` FOREIGN KEY (`TreeType`) REFERENCES `TreeType` (`BarcodePrefix`))>
 [5/11/20, 3:06 PM]|Tree|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1064: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ')' at line 1>
+[5/12/20, 11:10 AM]|TreeType|insertAutoIncrementalPersistentState|Error|NOTAG|null<SQL Exception: 1062: Duplicate entry '69' for key 'BarcodePrefix'>
+[5/12/20, 11:11 AM]|TreeType|insertAutoIncrementalPersistentState|Error|NOTAG|null<SQL Exception: 1062: Duplicate entry '69' for key 'BarcodePrefix'>
+[5/12/20, 11:22 AM]|TreeType|insertAutoIncrementalPersistentState|Error|NOTAG|null<SQL Exception: 1062: Duplicate entry '69' for key 'BarcodePrefix'>

@@ -2,7 +2,7 @@ package edu.brockport.treelotsales.userinterface;
 //import packages
 import edu.brockport.treelotsales.impresario.IModel;
 import edu.brockport.treelotsales.model.TLC;
-import edu.brockport.treelotsales.utilities.Utilities;
+import edu.brockport.treelotsales.model.TreeType;
 import javafx.beans.binding.Bindings;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
@@ -121,6 +121,12 @@ public class TreeTypeView extends View {
             System.out.println("Tree Type Description, Cost, or Barcode Prefix is Empty.");
             updateState("InputError", "Tree Type Description, Cost, and Barcode Prefix must not be empty.");
 
+        }
+
+        TreeType treeType = TreeType.getTreeTypeWithPrefix(barcodePrefixText);
+        if(treeType != null){
+            displayErrorMessage("Type already exists with this prefix");
+            isError = true;
         }
 
         if(!isError) {

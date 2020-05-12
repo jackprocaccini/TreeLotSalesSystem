@@ -2,6 +2,7 @@ package edu.brockport.treelotsales.userinterface;
 
 import edu.brockport.treelotsales.impresario.IModel;
 import edu.brockport.treelotsales.model.TLC;
+import javafx.beans.binding.Bindings;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.*;
@@ -126,7 +127,10 @@ public class ScoutView extends View{
         String lastName = lastNameTF.getText();
         String firstName = firstNameTF.getText();
         String middleName = middleNameTF.getText();
-        String DOB = dateOfBirth.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        String DOB = "";
+        if(dateOfBirth.getValue() != null){
+            DOB = dateOfBirth.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        }
         String phoneNumber = phoneNumberTF.getText();
         String email = emailTF.getText();
         String troopID = troopIDTF.getText();
@@ -136,6 +140,11 @@ public class ScoutView extends View{
         String dateStatusUpdated =  df.format(date);
 
         boolean isError = false;
+
+        if(DOB.equals("")){
+            displayErrorMessage("Must enter DOB");
+            isError = true;
+        }
 
         if(lastName.trim().isEmpty() || firstName.trim().isEmpty()){
             displayErrorMessage("first and last Name fields must not be null");
