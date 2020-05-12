@@ -88,7 +88,7 @@ public class TreeTypeView extends View {
 
         addTreeTypeButton.disableProperty().bind(
                 Bindings.isEmpty(typeDescriptionTF.textProperty())
-                        .and(Bindings.isEmpty(barcodePrefixTF.textProperty()))
+                        .or(Bindings.isEmpty(barcodePrefixTF.textProperty()).or(Bindings.isEmpty(costTF.textProperty())))
         );
 
         addTreeTypeButton.setOnAction(e -> {
@@ -101,14 +101,29 @@ public class TreeTypeView extends View {
     }
 
     private void verifyInputs() {
+        boolean isError = false;
         String treeTypeDescriptionText = typeDescriptionTF.getText().trim();
         String costText = costTF.getText().trim();
         String barcodePrefixText = barcodePrefixTF.getText().trim();
 
+        if(!costText.matches("\\d+")){
+            displayErrorMessage("Cost must be at least one digit in length.");
+            isError = true;
+        }
+
+        if(!barcodePrefixText.matches("\\d{2}")){
+            displayErrorMessage("Barcode Prefix must be exactly two digits.");
+            isError = true;
+        }
+
         if (costText.isEmpty() || barcodePrefixText.isEmpty() || treeTypeDescriptionText.isEmpty()) {
+            isError = true;
             System.out.println("Tree Type Description, Cost, or Barcode Prefix is Empty.");
             updateState("InputError", "Tree Type Description, Cost, and Barcode Prefix must not be empty.");
-        } else {
+
+        }
+
+        if(!isError) {
             System.out.println("creating properties");
             Properties props = new Properties();
             props.setProperty("TypeDescription", treeTypeDescriptionText);

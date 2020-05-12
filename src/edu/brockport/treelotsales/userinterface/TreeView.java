@@ -41,6 +41,7 @@ public class TreeView extends View {
 
     public TreeView(IModel tree){
         super(tree, "TreeView");
+        System.out.println("In TreeView");
         VBox container = new VBox(10);
         container.setPadding(new Insets(10, 10, 10, 10));
         container.getChildren().addAll(createBody(), createButtons(), createStatusLog(""));
@@ -124,8 +125,9 @@ public class TreeView extends View {
             l.createAndShowTLCView();
         });
 
-        addTreeButton.disableProperty().bind(
-                Bindings.isEmpty(barcodeTF.textProperty())
+        addTreeButton.disableProperty().bind(Bindings.or(
+                Bindings.isEmpty(barcodeTF.textProperty()),
+                Bindings.isEmpty(treeTypeTF.textProperty()))
         );
 
         addTreeButton.setOnAction(e -> {
@@ -158,6 +160,8 @@ public class TreeView extends View {
         if(barcodeText.isEmpty() || barcodePrefix.isEmpty()){
             System.out.println("barcode text or tree type text is empty");
             updateState("InputError", "Barcode and Tree Type fields must not be empty.");
+        } else if(!barcodeText.matches("\\d{6}")){
+            displayErrorMessage("Barcode must be six digits");
         } else {
             System.out.println("creating properties");
             Properties props = new Properties();

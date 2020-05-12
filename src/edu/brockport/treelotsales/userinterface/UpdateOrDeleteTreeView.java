@@ -80,7 +80,7 @@ public class UpdateOrDeleteTreeView extends View {
         treeTypeTF = new TextField((String)myModel.getState("TreeType"));
         notesTF = new TextField((String)myModel.getState("Notes"));
         statusCB = new ComboBox<String>();
-        statusCB.getItems().addAll("Active", "Inactive");
+        statusCB.getItems().addAll("Available", "Sold", "Damaged");
         statusCB.getSelectionModel().selectFirst();
 //        dateStatusUpdatedTF = new TextField();
         fieldsBox.getChildren().addAll(barcodeTF, treeTypeTF, notesTF, statusCB);

@@ -97,11 +97,21 @@ public class TLCView extends View {
         });
 
         closeShiftButton.setOnAction(e -> {
-            myModel.stateChangeRequest("CloseShift", null);
+            if(new SessionCollection().getActiveSession() != null){
+                myModel.stateChangeRequest("CloseShift", null);
+            } else {
+                displayErrorMessage("There is no open Shift");
+            }
+
         });
 
         sellTreeButton.setOnAction(e -> {
-            myModel.stateChangeRequest("SellTree", null);
+            if(new SessionCollection().getActiveSession() != null){
+                myModel.stateChangeRequest("SellTree", null);
+            } else {
+                displayErrorMessage("There is no open Shift");
+            }
+
         });
 
         buttonBox.getChildren().addAll(registerScoutButton, updateDeleteScoutButton, addTreeButton,

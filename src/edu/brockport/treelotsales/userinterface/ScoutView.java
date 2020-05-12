@@ -137,7 +137,7 @@ public class ScoutView extends View{
 
         boolean isError = false;
 
-        if(lastName == null || firstName == null || lastName.equals("") || firstName.equals("")){
+        if(lastName.trim().isEmpty() || firstName.trim().isEmpty()){
             displayErrorMessage("first and last Name fields must not be null");
             isError = true;
         }
@@ -154,6 +154,21 @@ public class ScoutView extends View{
 //            displayErrorMessage("Date must be an integer between 1800 and 2020, inclusive" + " " + middleName + " " + yearInt);
 //            isError = true;
 //        }
+
+        if(!phoneNumber.matches("[(]\\d\\d\\d[)]\\d\\d\\d[-]\\d\\d\\d\\d")){
+            displayErrorMessage("Incorrect phone number, must be: (NNN)NNN-NNNN");
+            isError = true;
+        }
+
+        if(!email.matches(".+[@].+[.].+")){
+            displayErrorMessage("Email must be valid");
+            isError = true;
+        }
+
+        if(!troopID.matches("\\d{9}")){
+            displayErrorMessage("Troop ID must have 9 digits");
+            isError = true;
+        }
 
         if(status.equals("") || status == null){
             displayErrorMessage("Please select a status");
